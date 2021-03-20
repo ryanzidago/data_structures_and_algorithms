@@ -1,2 +1,2 @@
-pub mod rightmost_element_as_pivot;
-pub mod leftmost_element_as_pivot;
+pub mod hoare_partition_scheme;
+pub mod lomuto_partition_scheme;

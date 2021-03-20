@@ -1,3 +1,3 @@
-mod quicksort;
+pub mod quicksort;
 
 fn main() {}
