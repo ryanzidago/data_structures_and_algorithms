@@ -20,14 +20,9 @@ fn partition(numbers: &mut Vec<i32>, mut low: isize, high: isize) -> isize {
     let pivot: i32 = numbers[high as usize];
 
     for j in low..high {
-        match numbers.get(j as usize) {
-            Some(&number) => {
-                if number < pivot {
-                    numbers.swap(low as usize, j as usize);
-                    low += 1;
-                }
-            }
-            None => (),
+        if numbers[j as usize] < pivot {
+            numbers.swap(low as usize, j as usize);
+            low += 1;
         }
     }
 
