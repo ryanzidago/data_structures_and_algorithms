@@ -132,4 +132,11 @@ mod test {
         quicksort(&mut input);
         assert_eq!(vec![0, 0, 1, 1, 2, 2, 4, 5], input);
     }
+
+    #[test]
+    fn quicksort_on_already_sorted_values_test() {
+        let mut input: Vec<i32> = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        quicksort(&mut input);
+        assert_eq!(vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9], input);
+    }
 }
