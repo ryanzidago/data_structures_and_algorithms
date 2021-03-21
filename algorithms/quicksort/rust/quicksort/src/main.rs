@@ -135,7 +135,8 @@ mod test {
         _quicksort_with_both_positive_and_negative_integers_test::<
             HoarePartitionSchemeRightmostPivot,
         >();
-        _quicksort_with_both_positive_and_negative_integers_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_with_both_positive_and_negative_integers_test::<HoarePartitionSchemeMiddlePivot>(
+        );
     }
 
     fn _quicksort_with_both_positive_and_negative_integers_test<T: Quicksort>() {
