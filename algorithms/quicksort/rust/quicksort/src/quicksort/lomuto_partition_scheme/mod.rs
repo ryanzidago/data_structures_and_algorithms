@@ -8,6 +8,8 @@ pub fn quicksort(numbers: &mut Vec<i32>) {
     _quicksort(numbers, low, high);
 }
 
+// Note that in Lomuto's partition scheme,
+// the pivot is not included
 fn _quicksort(numbers: &mut Vec<i32>, low: isize, high: isize) {
     if low < high {
         let pivot = partition(numbers, low, high);
