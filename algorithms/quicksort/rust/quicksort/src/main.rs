@@ -168,6 +168,14 @@ mod test {
         let mut input: Vec<i32> = vec![0, 0, 1, 5, 4, 2, 2, 1];
         T::quicksort(&mut input);
         assert_eq!(vec![0, 0, 1, 1, 2, 2, 4, 5], input);
+
+        let mut input: Vec<i32> = vec![-3, -3, 2, 10, 5, 1, 1];
+        T::quicksort(&mut input);
+        assert_eq!(vec![-3, -3, 1, 1, 2, 5, 10], input);
+
+        let mut input: Vec<i32> = vec![0, 0, 0, 0, 0, 0];
+        T::quicksort(&mut input);
+        assert_eq!(vec![0, 0, 0, 0, 0, 0], input);
     }
 
     #[test]
