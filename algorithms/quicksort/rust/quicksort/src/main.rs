@@ -4,6 +4,7 @@ enum LomutoPartitionScheme {}
 enum HoarePartitionSchemeLeftmostPivot {}
 enum HoarePartitionSchemeRightmostPivot {}
 enum HoarePartitionSchemeMiddlePivot {}
+enum HoarePartitionSchemeRandomPivot {}
 
 trait Quicksort {
     fn quicksort(numbers: &mut Vec<i32>);
@@ -33,6 +34,12 @@ impl Quicksort for HoarePartitionSchemeMiddlePivot {
     }
 }
 
+impl Quicksort for HoarePartitionSchemeRandomPivot {
+    fn quicksort(numbers: &mut Vec<i32>) {
+        quicksort::hoare_partition_scheme::random_element_as_pivot::quicksort(numbers);
+    }
+}
+
 fn main() {}
 
 #[cfg(test)]
@@ -45,6 +52,7 @@ mod test {
         _quicksort_with_only_positive_integer_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_with_only_positive_integer_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_with_only_positive_integer_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_with_only_positive_integer_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_with_only_positive_integer_test<T: Quicksort>() {
@@ -59,6 +67,7 @@ mod test {
         _quicksort_with_zero_as_first_element_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_with_zero_as_first_element_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_with_zero_as_first_element_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_with_zero_as_first_element_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_with_zero_as_first_element_test<T: Quicksort>() {
@@ -77,6 +86,7 @@ mod test {
         _quicksort_with_zero_as_last_element_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_with_zero_as_last_element_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_with_zero_as_last_element_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_with_zero_as_last_element_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_with_zero_as_last_element_test<T: Quicksort>() {
@@ -91,6 +101,7 @@ mod test {
         _quicksort_with_zero_as_second_to_last_element_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_with_zero_as_second_to_last_element_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_with_zero_as_second_to_last_element_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_with_zero_as_second_to_last_element_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_with_zero_as_second_to_last_element_test<T: Quicksort>() {
@@ -105,6 +116,7 @@ mod test {
         _quicksort_with_only_zeroes_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_with_only_zeroes_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_with_only_zeroes_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_with_only_zeroes_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_with_only_zeroes_test<T: Quicksort>() {
@@ -119,6 +131,7 @@ mod test {
         _quicksort_with_only_negative_integers_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_with_only_negative_integers_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_with_only_negative_integers_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_with_only_negative_integers_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_with_only_negative_integers_test<T: Quicksort>() {
@@ -137,6 +150,8 @@ mod test {
         >();
         _quicksort_with_both_positive_and_negative_integers_test::<HoarePartitionSchemeMiddlePivot>(
         );
+        _quicksort_with_both_positive_and_negative_integers_test::<HoarePartitionSchemeRandomPivot>(
+        );
     }
 
     fn _quicksort_with_both_positive_and_negative_integers_test<T: Quicksort>() {
@@ -151,6 +166,7 @@ mod test {
         _quicksort_on_empty_vector_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_on_empty_vector_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_on_empty_vector_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_on_empty_vector_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_on_empty_vector_test<T: Quicksort>() {
@@ -166,6 +182,7 @@ mod test {
         _quicksort_on_vector_with_only_one_element_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_on_vector_with_only_one_element_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_on_vector_with_only_one_element_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_on_vector_with_only_one_element_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_on_vector_with_only_one_element_test<T: Quicksort>() {
@@ -180,6 +197,7 @@ mod test {
         _quicksort_with_duplicate_values_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_with_duplicate_values_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_with_duplicate_values_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_with_duplicate_values_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_with_duplicate_values_test<T: Quicksort>() {
@@ -202,6 +220,7 @@ mod test {
         _quicksort_on_already_sorted_values_test::<HoarePartitionSchemeLeftmostPivot>();
         _quicksort_on_already_sorted_values_test::<HoarePartitionSchemeRightmostPivot>();
         _quicksort_on_already_sorted_values_test::<HoarePartitionSchemeMiddlePivot>();
+        _quicksort_on_already_sorted_values_test::<HoarePartitionSchemeRandomPivot>();
     }
 
     fn _quicksort_on_already_sorted_values_test<T: Quicksort>() {
