@@ -1,1 +1,0 @@
-/home/ryan/Projects/data-structures-and-algorithms/algorithms/bubble_sort/rust/bubble_sort/target/debug/bubble_sort: /home/ryan/Projects/data-structures-and-algorithms/algorithms/bubble_sort/rust/bubble_sort/src/main.rs
