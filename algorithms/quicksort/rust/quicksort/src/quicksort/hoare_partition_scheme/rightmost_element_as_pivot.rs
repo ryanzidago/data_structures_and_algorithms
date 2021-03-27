@@ -28,18 +28,21 @@ fn partition(numbers: &mut Vec<i32>, mut left_index: isize, mut right_index: isi
             left_index += 1
         }
 
+        if left_index >= right_index {
+            numbers.swap(left_index as usize, pivot_index as usize);
+            return left_index;
+        }
+
         while numbers[right_index as usize] > numbers[pivot_index as usize] && right_index > 0 {
             right_index -= 1
         }
 
         if left_index >= right_index {
-            break;
+            numbers.swap(left_index as usize, pivot_index as usize);
+            return left_index;
         } else {
             numbers.swap(left_index as usize, right_index as usize);
             left_index += 1;
         }
     }
-
-    numbers.swap(left_index as usize, pivot_index as usize);
-    return left_index;
 }

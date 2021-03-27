@@ -20,8 +20,16 @@ fn _quicksort(numbers: &mut Vec<i32>, left_index: isize, right_index: isize) {
 }
 
 fn partition(numbers: &mut Vec<i32>, mut left_index: isize, mut right_index: isize) -> isize {
-    let middle_index: isize = (left_index + right_index) / 2;
-    numbers.swap(right_index as usize, middle_index as usize);
+    // You should not compute the middle point as (left + right)/2.
+    // If the array is very large (>2G)
+    // then the result of "left + right" may overflow and become negative.
+    // The proper way of choosing the midpoint pivot is: "left + (right-left)/2"
+    // which is mathematically equivalent but immune to overflow as "right > left" is an invariant that always holds
+    // and if "right" is representable then, "left" is also representable the result will never overflow
+    // as it will be less than "right".
+    // cf here: https://www.youtube.com/watch?v=SLauY6PpjW4
+    let middle_index: usize = ((left_index + right_index) / 2) as usize;
+    numbers.swap(right_index as usize, middle_index);
 
     let pivot_index: isize = right_index;
     right_index -= 1;
