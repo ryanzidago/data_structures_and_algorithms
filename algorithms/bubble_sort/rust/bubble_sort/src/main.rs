@@ -19,7 +19,7 @@ fn bubble_sort_bis(array: &mut Vec<i32>) {
         return;
     }
 
-    let mut unsorted_until_index = (array.len() - 1) as isize;
+    let mut unsorted_until_index = (array.len() - 1) as usize;
     let mut sorted = false;
 
     while !sorted {
@@ -37,6 +37,13 @@ fn bubble_sort_bis(array: &mut Vec<i32>) {
 #[cfg(test)]
 mod test {
     use super::*;
+
+    #[test]
+    fn bubble_sort_test() {
+        let mut input: Vec<i32> = vec![3, 1, 4, 2, 6, 5];
+        bubble_sort_bis(&mut input);
+        assert_eq!(vec![1, 2, 3, 4, 5, 6], input);
+    }
 
     #[test]
     fn bubble_sort_with_only_positive_integer_test() {
