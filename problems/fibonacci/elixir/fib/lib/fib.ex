@@ -1,7 +1,7 @@
 defmodule FibUnfold do
   def first_nth(n), do: Enum.take(fib(), n)
 
-  def nth(n), do: Enum.at(fib(), n)
+  def nth(n), do: Enum.at(fib(), n - 1)
 
   def fib do
     Stream.unfold({0, 1}, fn {current, next} -> {current, {next, current + next}) end)
