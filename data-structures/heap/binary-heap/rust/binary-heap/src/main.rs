@@ -18,31 +18,44 @@ mod binary_heap {
 
         pub fn push(&mut self, value: T) {
             self.data.push(value);
-
-            let mut new_node_index: usize = self.data.len() - 1;
-            while new_node_index > 0
-                && self.data[new_node_index] > self.data[self.parent_index(new_node_index)]
-            {
-                let parent_index = self.parent_index(new_node_index);
-                self.data.swap(parent_index, new_node_index);
-                new_node_index = self.parent_index(new_node_index);
-            }
+            let new_node_index: usize = self.data.len() - 1;
+            self.sift_up(new_node_index);
         }
 
         pub fn pop(&mut self) -> T {
             let deleted_node = self.data[0].clone();
 
             self.data[0] = self.data.pop().unwrap();
-
-            let mut trickle_node_index = 0;
-
-            while self.has_greater_child(trickle_node_index) {
-                let larger_child_index = self.calculate_larger_child_index(trickle_node_index);
-                self.data.swap(trickle_node_index, larger_child_index);
-                trickle_node_index = larger_child_index;
-            }
+            self.sift_down();
 
             deleted_node
+        }
+
+        fn sift_up(&mut self, mut new_node_index: usize) {
+            while !self.is_root(new_node_index) && self.is_greater_than_parent(new_node_index) {
+                let parent_index = self.parent_index(new_node_index);
+                self.data.swap(parent_index, new_node_index);
+                new_node_index = self.parent_index(new_node_index);
+            }
+        }
+
+        fn is_root(&self, node_index: usize) -> bool {
+            node_index == 0
+        }
+
+        fn is_greater_than_parent(&self, node_index: usize) -> bool {
+            let parent_index = self.parent_index(node_index);
+            self.data[node_index] > self.data[parent_index]
+        }
+
+        fn sift_down(&mut self) {
+            let mut sifted_down_node_index: usize = 0;
+
+            while self.has_greater_child(sifted_down_node_index) {
+                let larger_child_index = self.calculate_larger_child_index(sifted_down_node_index);
+                self.data.swap(sifted_down_node_index, larger_child_index);
+                sifted_down_node_index = larger_child_index;
+            }
         }
 
         fn left_child_index(&self, index: usize) -> usize {
