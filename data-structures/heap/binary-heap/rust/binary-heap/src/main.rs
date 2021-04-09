@@ -2,7 +2,7 @@ fn main() {
     println!("Hello, world!");
 }
 
-mod heap {
+mod binary_heap {
     #[derive(Debug)]
     pub struct MaxHeap<T> {
         data: Vec<T>,
