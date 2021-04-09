@@ -2,137 +2,158 @@ fn main() {
     println!("Hello, world!");
 }
 
-#[derive(Debug)]
-struct Heap {
-    data: Vec<i32>,
-}
-
-impl Heap {
-    fn new() -> Heap {
-        Heap { data: vec![] }
+mod heap {
+    #[derive(Debug)]
+    pub struct MaxHeap<T> {
+        data: Vec<T>,
     }
 
-    fn left_child_index(&self, index: usize) -> usize {
-        (index * 2) + 1
-    }
+    impl<T> MaxHeap<T>
+    where
+        T: PartialOrd + Clone,
+    {
+        pub fn new() -> MaxHeap<T> {
+            MaxHeap { data: vec![] }
+        }
 
-    fn right_child_index(&self, index: usize) -> usize {
-        (index * 2) + 2
-    }
+        pub fn push(&mut self, value: T) {
+            self.data.push(value);
 
-    fn parent_index(&self, index: usize) -> usize {
-        (index - 1) / 2
-    }
+            let mut new_node_index: usize = self.data.len() - 1;
+            while new_node_index > 0
+                && self.data[new_node_index] > self.data[self.parent_index(new_node_index)]
+            {
+                let parent_index = self.parent_index(new_node_index);
+                self.data.swap(parent_index, new_node_index);
+                new_node_index = self.parent_index(new_node_index);
+            }
+        }
 
-    pub fn push(&mut self, value: i32) {
-        self.data.push(value);
+        pub fn pop(&mut self) -> T {
+            let deleted_node = self.data[0].clone();
 
-        let mut new_node_index: usize = self.data.len() - 1;
-        while new_node_index > 0
-            && self.data[new_node_index] > self.data[self.parent_index(new_node_index)]
-        {
-            let parent_index = self.parent_index(new_node_index);
-            self.data.swap(parent_index, new_node_index);
-            new_node_index = self.parent_index(new_node_index);
+            self.data[0] = self.data.pop().unwrap();
+
+            let mut trickle_node_index = 0;
+
+            while self.has_greater_child(trickle_node_index) {
+                let larger_child_index = self.calculate_larger_child_index(trickle_node_index);
+                self.data.swap(trickle_node_index, larger_child_index);
+                trickle_node_index = larger_child_index;
+            }
+
+            deleted_node
+        }
+
+        fn left_child_index(&self, index: usize) -> usize {
+            (index * 2) + 1
+        }
+
+        fn right_child_index(&self, index: usize) -> usize {
+            (index * 2) + 2
+        }
+
+        fn parent_index(&self, index: usize) -> usize {
+            (index - 1) / 2
+        }
+
+        fn has_greater_child(&self, index: usize) -> bool {
+            let left_child_index: usize = self.left_child_index(index);
+            let right_child_index: usize = self.right_child_index(index);
+
+            self.data.get(left_child_index).is_some()
+                && self.data[left_child_index] > self.data[index]
+                || self.data.get(right_child_index).is_some()
+                    && self.data[right_child_index] > self.data[index]
+        }
+
+        fn calculate_larger_child_index(&self, index: usize) -> usize {
+            let left_child_index: usize = self.left_child_index(index);
+            let right_child_index: usize = self.right_child_index(index);
+
+            let left_child = self.data.get(left_child_index);
+            let right_child = self.data.get(right_child_index);
+
+            if ((right_child.is_some() && left_child.is_some()) && right_child > left_child)
+                || left_child.is_none()
+            {
+                return right_child_index;
+            } else {
+                return left_child_index;
+            }
         }
     }
 
-    pub fn pop(&mut self) -> i32 {
-        let deleted_node = self.data[0];
+    #[cfg(test)]
+    mod test {
+        use super::*;
 
-        self.data[0] = self.data.pop().unwrap();
+        #[test]
+        fn push_test() {
+            let mut heap: MaxHeap<i32> = MaxHeap::new();
+            heap.push(3);
+            heap.push(2);
 
-        let mut trickle_node_index = 0;
-
-        while self.has_greater_child(trickle_node_index) {
-            let larger_child_index = self.calculate_larger_child_index(trickle_node_index);
-            self.data.swap(trickle_node_index, larger_child_index);
-            trickle_node_index = larger_child_index;
+            assert_eq!(vec![3, 2], heap.data);
         }
 
-        deleted_node
-    }
+        #[test]
+        fn root_node_is_always_the_biggest_element_in_heap_after_push_test() {
+            let mut heap: MaxHeap<i32> = MaxHeap::new();
+            heap.push(5);
+            heap.push(10);
+            heap.push(2);
 
-    fn has_greater_child(&self, index: usize) -> bool {
-        let left_child_index: usize = self.left_child_index(index);
-        let right_child_index: usize = self.right_child_index(index);
+            assert_eq!(10, heap.data[0]);
 
-        self.data.get(left_child_index).is_some() && self.data[left_child_index] > self.data[index]
-            || self.data.get(right_child_index).is_some()
-                && self.data[right_child_index] > self.data[index]
-    }
+            heap.push(3);
 
-    fn calculate_larger_child_index(&self, index: usize) -> usize {
-        let left_child_index: usize = self.left_child_index(index);
-        let right_child_index: usize = self.right_child_index(index);
+            assert_eq!(10, heap.data[0]);
 
-        let left_child: &i32 = self.data.get(left_child_index).unwrap_or(&0);
-        let right_child: &i32 = self.data.get(right_child_index).unwrap_or(&0);
+            heap.push(20);
 
-        if right_child > left_child {
-            return right_child_index;
-        } else {
-            return left_child_index;
+            assert_eq!(20, heap.data[0]);
         }
-    }
-}
 
-#[cfg(test)]
-mod test {
-    use super::*;
+        #[test]
+        fn pop_always_pop_the_root_node() {
+            let mut heap: MaxHeap<i32> = MaxHeap::new();
+            heap.push(10);
+            heap.push(4);
+            heap.push(7);
 
-    #[test]
-    fn push_test() {
-        let mut heap: Heap = Heap::new();
-        heap.push(3);
-        heap.push(2);
+            heap.pop();
 
-        assert_eq!(vec![3, 2], heap.data);
-    }
+            assert!(!heap.data.contains(&10));
+        }
 
-    #[test]
-    fn root_node_is_always_the_biggest_element_in_heap_after_push_test() {
-        let mut heap: Heap = Heap::new();
-        heap.push(5);
-        heap.push(10);
-        heap.push(2);
+        #[test]
+        fn root_node_is_always_the_biggest_element_in_heap_after_pop_test() {
+            let mut heap: MaxHeap<i32> = MaxHeap::new();
+            heap.push(5);
+            heap.push(10);
+            heap.push(2);
 
-        assert_eq!(10, heap.data[0]);
+            heap.pop();
 
-        heap.push(3);
+            assert_eq!(5, heap.data[0]);
 
-        assert_eq!(10, heap.data[0]);
+            heap.pop();
 
-        heap.push(20);
+            assert_eq!(2, heap.data[0]);
+        }
 
-        assert_eq!(20, heap.data[0]);
-    }
+        #[test]
+        fn heap_is_generic_over_some_type_t() {
+            let mut heap: MaxHeap<(i32, String)> = MaxHeap::new();
+            heap.push((2, String::from("Zanzibar")));
+            heap.push((10, String::from("Porto")));
+            heap.push((5, String::from("Beijing")));
 
-    #[test]
-    fn pop_always_pop_the_root_node() {
-        let mut heap: Heap = Heap::new();
-        heap.push(10);
-        heap.push(4);
-        heap.push(7);
+            let element: (i32, String) = heap.pop();
 
-        heap.pop();
-
-        assert!(!heap.data.contains(&10));
-    }
-
-    #[test]
-    fn root_node_is_always_the_biggest_element_in_heap_after_pop_test() {
-        let mut heap: Heap = Heap::new();
-        heap.push(5);
-        heap.push(10);
-        heap.push(2);
-
-        heap.pop();
-
-        assert_eq!(5, heap.data[0]);
-
-        heap.pop();
-
-        assert_eq!(2, heap.data[0]);
+            assert_eq!((10, String::from("Porto")), element);
+            assert_eq!((5, String::from("Beijing")), heap.data[0]);
+        }
     }
 }
