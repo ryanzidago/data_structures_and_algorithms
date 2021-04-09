@@ -5,7 +5,7 @@ fn main() {
 mod binary_heap {
     #[derive(Debug)]
     pub struct MaxHeap<T> {
-        data: Vec<T>,
+        pub data: Vec<T>,
     }
 
     impl<T> MaxHeap<T>
