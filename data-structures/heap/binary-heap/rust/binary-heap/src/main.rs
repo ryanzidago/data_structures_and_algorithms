@@ -16,12 +16,40 @@ mod binary_heap {
             MaxHeap { data: vec![] }
         }
 
+        // Binary heap insertion
+
+        // Algorithm:
+        // 1. Insert the value at the end of the heap tree (next available rightmost spot in the bottom level of the heap tree)
+        // 2. Compare the inserted node with its parent node
+        // 3. If the inserted node is greater than its parent, swap the inserted node with the parent
+        // 4. Repeat step 2 and 3 until the newly inserted node has no parent whose value is greater than it
+
+        // Time complexity:
+        // O(log N)
+        // At most we would need to go through all the heap tree's row.
+        // A binary tree of size N has roughly O(log N) rows
+        // So deleting a node from a heap is at most O(log N)
+
         pub fn push(&mut self, value: T) {
             self.data.push(value);
             let new_node_index: usize = self.data.len() - 1;
             self.sift_up(new_node_index);
         }
 
+        // Binary heap deletion
+
+        // Algorithm:
+        // 1. Remove the root node (i.e. the node with the highest value in a max heap)
+        // 2. Replace the root node with the heap's last node (which will be called the sifted down node)
+        // 3. Compare the sifted down node with the larger of the sifted down node's two children
+        // 4. If the sifted down node is smaller than the larger of the two child nodes, swap the sifted node with that larger child
+        // 5. Repeat steps 3 and 4 until the sifted down node has no children who are greater than it
+
+        // Time complexity:
+        // O(log N)
+        // At most we would need to go through all the heap tree's row.
+        // A binary tree of size N has roughly O(log N) rows
+        // So deleting a node from a heap is at most O(log N)
         pub fn pop(&mut self) -> Option<T> {
             match self.data.len() {
                 0 => None,
