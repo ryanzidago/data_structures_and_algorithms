@@ -10,7 +10,7 @@ mod binary_heap {
 
     impl<T> MaxHeap<T>
     where
-        T: PartialOrd + Clone,
+        T: PartialOrd,
     {
         pub fn new() -> MaxHeap<T> {
             MaxHeap { data: vec![] }
@@ -22,13 +22,15 @@ mod binary_heap {
             self.sift_up(new_node_index);
         }
 
-        pub fn pop(&mut self) -> T {
-            let deleted_node = self.data[0].clone();
-
-            self.data[0] = self.data.pop().unwrap();
-            self.sift_down();
-
-            deleted_node
+        pub fn pop(&mut self) -> Option<T> {
+            match self.data.len() {
+                0 => None,
+                _ => {
+                    let deleted_node = self.data.swap_remove(0);
+                    self.sift_down();
+                    Some(deleted_node)
+                }
+            }
         }
 
         fn sift_up(&mut self, mut new_node_index: usize) {
@@ -141,6 +143,15 @@ mod binary_heap {
         }
 
         #[test]
+        fn pop_returns_a_variant_of_the_option_enum() {
+            let mut heap: MaxHeap<i32> = MaxHeap::new();
+            heap.push(10);
+
+            assert_eq!(Some(10), heap.pop());
+            assert_eq!(None, heap.pop());
+        }
+
+        #[test]
         fn root_node_is_always_the_biggest_element_in_heap_after_pop_test() {
             let mut heap: MaxHeap<i32> = MaxHeap::new();
             heap.push(5);
@@ -163,9 +174,9 @@ mod binary_heap {
             heap.push((10, String::from("Porto")));
             heap.push((5, String::from("Beijing")));
 
-            let element: (i32, String) = heap.pop();
+            let element = heap.pop();
 
-            assert_eq!((10, String::from("Porto")), element);
+            assert_eq!(Some((10, String::from("Porto"))), element);
             assert_eq!((5, String::from("Beijing")), heap.data[0]);
         }
     }
