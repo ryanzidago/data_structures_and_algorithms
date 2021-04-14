@@ -1,7 +1,7 @@
 fn main() {
     println!("Hello, world!");
 }
-mod binary_search_tree {
+pub mod binary_search_tree {
 
     use std::cell::RefCell;
     use std::cmp::Ordering;
