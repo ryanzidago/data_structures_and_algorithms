@@ -82,14 +82,11 @@ pub mod binary_search_tree {
 
     fn _in_order_traversal(root: Option<Rc<RefCell<TreeNode>>>, result: &mut Vec<i32>) -> Vec<i32> {
         if let Some(node) = root {
-            if let Some(left_child) = node.borrow().left_child.clone() {
-                _in_order_traversal(Some(Rc::clone(&left_child)), result);
-            }
+            _in_order_traversal(node.borrow().left_child.clone(), result);
             result.push(node.borrow().value);
-            if let Some(right_child) = node.borrow().right_child.clone() {
-                _in_order_traversal(Some(Rc::clone(&&right_child)), result);
-            }
+            _in_order_traversal(node.borrow().right_child.clone(), result);
         }
+
         result.clone()
     }
 
