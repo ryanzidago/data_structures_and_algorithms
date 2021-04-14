@@ -59,8 +59,11 @@ pub mod binary_search_tree {
         }
     }
 
-    pub fn invert(root: TreeNode) -> Option<Rc<RefCell<TreeNode>>> {
+    pub fn invert(root: TreeNode) -> TreeNode {
         _invert(Some(Rc::new(RefCell::new(root))))
+            .unwrap()
+            .borrow()
+            .clone()
     }
 
     fn _invert(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
@@ -273,10 +276,8 @@ mod test {
         bst.insert(7);
         bst.insert(6);
         bst.insert(9);
-        bst = crate::binary_search_tree::invert(bst)
-            .unwrap()
-            .borrow()
-            .clone();
+
+        bst = crate::binary_search_tree::invert(bst);
 
         assert_eq!(bst, expected);
     }
