@@ -181,6 +181,12 @@ mod test {
     }
 
     #[test]
+    fn contains_return_false_if_binary_search_tree_does_not_contain_the_searched_value() {
+        let bst = TreeNode::new(100);
+        assert!(!bst.contains(1));
+    }
+
+    #[test]
     fn insert_inserts_a_value_into_a_binary_search_tree() {
         let mut bst = TreeNode::new(3);
         bst.insert(2);
