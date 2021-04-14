@@ -2,13 +2,15 @@ fn main() {
     println!("Hello, world!");
 }
 
+use std::cell::RefCell;
 use std::cmp::Ordering;
+use std::rc::Rc;
 
 #[derive(Debug, PartialEq)]
 pub struct TreeNode {
     pub value: Option<i32>,
-    pub left_child: Option<Box<TreeNode>>,
-    pub right_child: Option<Box<TreeNode>>,
+    pub left_child: Option<Rc<RefCell<TreeNode>>>,
+    pub right_child: Option<Rc<RefCell<TreeNode>>>,
 }
 
 impl TreeNode {
@@ -25,11 +27,11 @@ impl TreeNode {
             Some(value) => match value.cmp(&searched_value) {
                 Ordering::Equal => true,
                 Ordering::Greater => match &self.left_child {
-                    Some(left_child) => left_child.contains(searched_value),
+                    Some(left_child) => left_child.borrow().contains(searched_value),
                     None => false,
                 },
                 Ordering::Less => match &self.right_child {
-                    Some(right_child) => right_child.contains(searched_value),
+                    Some(right_child) => right_child.borrow().contains(searched_value),
                     None => false,
                 },
             },
@@ -41,12 +43,18 @@ impl TreeNode {
         match self.value {
             Some(value) => match value_to_be_inserted.cmp(&value) {
                 Ordering::Less => match &mut self.left_child {
-                    Some(left_child) => left_child.insert(value_to_be_inserted),
-                    None => self.left_child = Some(Box::new(TreeNode::new(value_to_be_inserted))),
+                    Some(left_child) => left_child.borrow_mut().insert(value_to_be_inserted),
+                    None => {
+                        self.left_child =
+                            Some(Rc::new(RefCell::new(TreeNode::new(value_to_be_inserted))))
+                    }
                 },
                 Ordering::Greater => match &mut self.right_child {
-                    Some(right_child) => right_child.insert(value_to_be_inserted),
-                    None => self.right_child = Some(Box::new(TreeNode::new(value_to_be_inserted))),
+                    Some(right_child) => right_child.borrow_mut().insert(value_to_be_inserted),
+                    None => {
+                        self.right_child =
+                            Some(Rc::new(RefCell::new(TreeNode::new(value_to_be_inserted))))
+                    }
                 },
                 Ordering::Equal => (),
             },
@@ -84,11 +92,11 @@ mod test {
 
         let expected = TreeNode {
             value: Some(3),
-            left_child: Some(Box::new(TreeNode {
+            left_child: Some(Rc::new(RefCell::new(TreeNode {
                 value: Some(2),
                 left_child: None,
                 right_child: None,
-            })),
+            }))),
             right_child: None,
         };
 
@@ -104,32 +112,32 @@ mod test {
 
         let expected = TreeNode {
             value: Some(50),
-            left_child: Some(Box::new(TreeNode {
+            left_child: Some(Rc::new(RefCell::new(TreeNode {
                 value: Some(25),
-                left_child: Some(Box::new(TreeNode {
+                left_child: Some(Rc::new(RefCell::new(TreeNode {
                     value: Some(10),
                     left_child: None,
                     right_child: None,
-                })),
-                right_child: Some(Box::new(TreeNode {
+                }))),
+                right_child: Some(Rc::new(RefCell::new(TreeNode {
                     value: Some(33),
                     left_child: None,
                     right_child: None,
-                })),
-            })),
-            right_child: Some(Box::new(TreeNode {
+                }))),
+            }))),
+            right_child: Some(Rc::new(RefCell::new(TreeNode {
                 value: Some(75),
-                left_child: Some(Box::new(TreeNode {
+                left_child: Some(Rc::new(RefCell::new(TreeNode {
                     value: Some(56),
                     left_child: None,
                     right_child: None,
-                })),
-                right_child: Some(Box::new(TreeNode {
+                }))),
+                right_child: Some(Rc::new(RefCell::new(TreeNode {
                     value: Some(89),
                     left_child: None,
                     right_child: None,
-                })),
-            })),
+                }))),
+            }))),
         };
 
         assert_eq!(bst, expected);
