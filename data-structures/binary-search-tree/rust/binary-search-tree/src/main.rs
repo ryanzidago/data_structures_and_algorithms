@@ -8,7 +8,7 @@ use std::rc::Rc;
 
 #[derive(Debug, PartialEq)]
 pub struct TreeNode {
-    pub value: Option<i32>,
+    pub value: i32,
     pub left_child: Option<Rc<RefCell<TreeNode>>>,
     pub right_child: Option<Rc<RefCell<TreeNode>>>,
 }
@@ -16,49 +16,43 @@ pub struct TreeNode {
 impl TreeNode {
     pub fn new(value: i32) -> TreeNode {
         TreeNode {
-            value: Some(value),
+            value,
             left_child: None,
             right_child: None,
         }
     }
 
     pub fn contains(&self, searched_value: i32) -> bool {
-        match &self.value {
-            Some(value) => match value.cmp(&searched_value) {
-                Ordering::Equal => true,
-                Ordering::Greater => match &self.left_child {
-                    Some(left_child) => left_child.borrow().contains(searched_value),
-                    None => false,
-                },
-                Ordering::Less => match &self.right_child {
-                    Some(right_child) => right_child.borrow().contains(searched_value),
-                    None => false,
-                },
+        match self.value.cmp(&searched_value) {
+            Ordering::Equal => true,
+            Ordering::Greater => match &self.left_child {
+                Some(left_child) => left_child.borrow().contains(searched_value),
+                None => false,
             },
-            None => false,
+            Ordering::Less => match &self.right_child {
+                Some(right_child) => right_child.borrow().contains(searched_value),
+                None => false,
+            },
         }
     }
 
     pub fn insert(&mut self, value_to_be_inserted: i32) {
-        match self.value {
-            Some(value) => match value_to_be_inserted.cmp(&value) {
-                Ordering::Less => match &mut self.left_child {
-                    Some(left_child) => left_child.borrow_mut().insert(value_to_be_inserted),
-                    None => {
-                        self.left_child =
-                            Some(Rc::new(RefCell::new(TreeNode::new(value_to_be_inserted))))
-                    }
-                },
-                Ordering::Greater => match &mut self.right_child {
-                    Some(right_child) => right_child.borrow_mut().insert(value_to_be_inserted),
-                    None => {
-                        self.right_child =
-                            Some(Rc::new(RefCell::new(TreeNode::new(value_to_be_inserted))))
-                    }
-                },
-                Ordering::Equal => (),
+        match value_to_be_inserted.cmp(&self.value) {
+            Ordering::Less => match &mut self.left_child {
+                Some(left_child) => left_child.borrow_mut().insert(value_to_be_inserted),
+                None => {
+                    self.left_child =
+                        Some(Rc::new(RefCell::new(TreeNode::new(value_to_be_inserted))))
+                }
             },
-            None => self.value = Some(value_to_be_inserted),
+            Ordering::Greater => match &mut self.right_child {
+                Some(right_child) => right_child.borrow_mut().insert(value_to_be_inserted),
+                None => {
+                    self.right_child =
+                        Some(Rc::new(RefCell::new(TreeNode::new(value_to_be_inserted))))
+                }
+            },
+            Ordering::Equal => (),
         }
     }
 }
@@ -71,7 +65,7 @@ mod test {
     fn new_returns_a_tree_node_with_the_created_value_wrapped_in_the_option_enum() {
         let bst = TreeNode::new(100);
         let expected = TreeNode {
-            value: Some(100),
+            value: 100,
             left_child: None,
             right_child: None,
         };
@@ -91,9 +85,9 @@ mod test {
         bst.insert(2);
 
         let expected = TreeNode {
-            value: Some(3),
+            value: 3,
             left_child: Some(Rc::new(RefCell::new(TreeNode {
-                value: Some(2),
+                value: 2,
                 left_child: None,
                 right_child: None,
             }))),
@@ -111,29 +105,29 @@ mod test {
         bst.insert(89);
 
         let expected = TreeNode {
-            value: Some(50),
+            value: 50,
             left_child: Some(Rc::new(RefCell::new(TreeNode {
-                value: Some(25),
+                value: 25,
                 left_child: Some(Rc::new(RefCell::new(TreeNode {
-                    value: Some(10),
+                    value: 10,
                     left_child: None,
                     right_child: None,
                 }))),
                 right_child: Some(Rc::new(RefCell::new(TreeNode {
-                    value: Some(33),
+                    value: 33,
                     left_child: None,
                     right_child: None,
                 }))),
             }))),
             right_child: Some(Rc::new(RefCell::new(TreeNode {
-                value: Some(75),
+                value: 75,
                 left_child: Some(Rc::new(RefCell::new(TreeNode {
-                    value: Some(56),
+                    value: 56,
                     left_child: None,
                     right_child: None,
                 }))),
                 right_child: Some(Rc::new(RefCell::new(TreeNode {
-                    value: Some(89),
+                    value: 89,
                     left_child: None,
                     right_child: None,
                 }))),
