@@ -8,7 +8,7 @@ pub mod binary_search_tree {
     use std::collections::VecDeque;
     use std::rc::Rc;
 
-    #[derive(Debug, PartialEq)]
+    #[derive(Debug, PartialEq, Clone)]
     pub struct TreeNode {
         pub value: i32,
         pub left_child: Option<Rc<RefCell<TreeNode>>>,
@@ -85,6 +85,23 @@ pub mod binary_search_tree {
             _in_order_traversal(node.borrow().left_child.clone(), result);
             result.push(node.borrow().value);
             _in_order_traversal(node.borrow().right_child.clone(), result);
+        }
+
+        result.clone()
+    }
+
+    pub fn post_order_traversal(root: TreeNode) -> Vec<i32> {
+        _post_order_traversal(Some(Rc::new(RefCell::new(root))), &mut Vec::new())
+    }
+
+    fn _post_order_traversal(
+        root: Option<Rc<RefCell<TreeNode>>>,
+        result: &mut Vec<i32>,
+    ) -> Vec<i32> {
+        if let Some(node) = root {
+            _post_order_traversal(node.borrow().left_child.clone(), result);
+            _post_order_traversal(node.borrow().right_child.clone(), result);
+            result.push(node.borrow().value)
         }
 
         result.clone()
@@ -225,6 +242,19 @@ mod test {
         bst.insert(9);
 
         let result = crate::binary_search_tree::in_order_traversal(bst);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn post_order_traversal_returns_a_vector_containing_the_bst_values_post_ordered() {
+        let expected = vec![2, 5, 9, 7, 3];
+        let mut bst = TreeNode::new(3);
+        bst.insert(2);
+        bst.insert(7);
+        bst.insert(5);
+        bst.insert(9);
+
+        let result = crate::binary_search_tree::post_order_traversal(bst);
         assert_eq!(result, expected);
     }
 
