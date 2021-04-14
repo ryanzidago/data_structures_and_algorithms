@@ -59,6 +59,22 @@ pub mod binary_search_tree {
         }
     }
 
+    pub fn invert(root: TreeNode) -> Option<Rc<RefCell<TreeNode>>> {
+        _invert(Some(Rc::new(RefCell::new(root))))
+    }
+
+    fn _invert(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
+        if let Some(node) = root {
+            let left_child = node.borrow().left_child.clone();
+            let right_child = node.borrow().right_child.clone();
+
+            node.borrow_mut().left_child = _invert(right_child);
+            node.borrow_mut().right_child = _invert(left_child);
+            return Some(node);
+        }
+        None
+    }
+
     pub fn pre_order_traversal(root: TreeNode) -> Vec<i32> {
         _pre_order_traversal(Some(Rc::new(RefCell::new(root))), &mut Vec::new())
     }
@@ -215,6 +231,52 @@ mod test {
                 }))),
             }))),
         };
+
+        assert_eq!(bst, expected);
+    }
+
+    #[test]
+    fn invert_inverts_a_bst() {
+        let expected = TreeNode {
+            value: 4,
+            left_child: Some(Rc::new(RefCell::new(TreeNode {
+                value: 7,
+                left_child: Some(Rc::new(RefCell::new(TreeNode {
+                    value: 9,
+                    left_child: None,
+                    right_child: None,
+                }))),
+                right_child: Some(Rc::new(RefCell::new(TreeNode {
+                    value: 6,
+                    left_child: None,
+                    right_child: None,
+                }))),
+            }))),
+            right_child: Some(Rc::new(RefCell::new(TreeNode {
+                value: 2,
+                left_child: Some(Rc::new(RefCell::new(TreeNode {
+                    value: 3,
+                    left_child: None,
+                    right_child: None,
+                }))),
+                right_child: Some(Rc::new(RefCell::new(TreeNode {
+                    value: 1,
+                    left_child: None,
+                    right_child: None,
+                }))),
+            }))),
+        };
+        let mut bst = TreeNode::new(4);
+        bst.insert(2);
+        bst.insert(1);
+        bst.insert(3);
+        bst.insert(7);
+        bst.insert(6);
+        bst.insert(9);
+        bst = crate::binary_search_tree::invert(bst)
+            .unwrap()
+            .borrow()
+            .clone();
 
         assert_eq!(bst, expected);
     }
