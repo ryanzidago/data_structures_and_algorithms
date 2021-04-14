@@ -59,8 +59,8 @@ pub mod binary_search_tree {
         }
     }
 
-    pub fn in_order_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
-        _in_order_traversal(root, &mut Vec::new())
+    pub fn in_order_traversal(root: TreeNode) -> Vec<i32> {
+        _in_order_traversal(Some(Rc::new(RefCell::new(root))), &mut Vec::new())
     }
 
     fn _in_order_traversal(root: Option<Rc<RefCell<TreeNode>>>, result: &mut Vec<i32>) -> Vec<i32> {
@@ -76,13 +76,11 @@ pub mod binary_search_tree {
         result.clone()
     }
 
-    pub fn level_order_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
+    pub fn level_order_traversal(root: TreeNode) -> Vec<Vec<i32>> {
         let mut queue: VecDeque<Rc<RefCell<TreeNode>>> = VecDeque::new();
         let mut result: Vec<Vec<i32>> = Vec::new();
 
-        if let Some(node) = root {
-            queue.push_back(node);
-        }
+        queue.push_back(Rc::new(RefCell::new(root)));
 
         while !queue.is_empty() {
             let mut level: Vec<i32> = Vec::new();
@@ -199,8 +197,7 @@ mod test {
         bst.insert(5);
         bst.insert(9);
 
-        let result =
-            crate::binary_search_tree::in_order_traversal(Some(Rc::new(RefCell::new(bst))));
+        let result = crate::binary_search_tree::in_order_traversal(bst);
         assert_eq!(result, expected);
     }
 
@@ -213,8 +210,7 @@ mod test {
         bst.insert(5);
         bst.insert(9);
 
-        let result =
-            crate::binary_search_tree::level_order_traversal(Some(Rc::new(RefCell::new(bst))));
+        let result = crate::binary_search_tree::level_order_traversal(bst);
         assert_eq!(result, expected);
     }
 }
