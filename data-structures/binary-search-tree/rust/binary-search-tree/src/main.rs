@@ -1,8 +1,8 @@
 fn main() {
     println!("Hello, world!");
 }
-pub mod binary_search_tree {
 
+pub mod binary_search_tree {
     use std::cell::RefCell;
     use std::cmp::Ordering;
     use std::collections::VecDeque;
@@ -57,6 +57,23 @@ pub mod binary_search_tree {
                 Ordering::Equal => (),
             }
         }
+    }
+
+    pub fn in_order_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+        _in_order_traversal(root, &mut Vec::new())
+    }
+
+    fn _in_order_traversal(root: Option<Rc<RefCell<TreeNode>>>, result: &mut Vec<i32>) -> Vec<i32> {
+        if let Some(node) = root {
+            if let Some(left_child) = node.borrow().left_child.clone() {
+                _in_order_traversal(Some(Rc::clone(&left_child)), result);
+            }
+            result.push(node.borrow().value);
+            if let Some(right_child) = node.borrow().right_child.clone() {
+                _in_order_traversal(Some(Rc::clone(&&right_child)), result);
+            }
+        }
+        result.clone()
     }
 
     pub fn level_order_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
@@ -174,8 +191,21 @@ mod test {
     }
 
     #[test]
-    fn level_order_traversal_returns_a_vector_of_vector_containing_the_tree_node_value_in_the_level_order(
-    ) {
+    fn in_order_traversal_returns_a_vector_containing_the_bst_values_in_order() {
+        let expected = vec![2, 3, 5, 7, 9];
+        let mut bst = TreeNode::new(3);
+        bst.insert(2);
+        bst.insert(7);
+        bst.insert(5);
+        bst.insert(9);
+
+        let result =
+            crate::binary_search_tree::in_order_traversal(Some(Rc::new(RefCell::new(bst))));
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn level_order_traversal_returns_a_vector_of_vector_containing_the_bst_values_in_level_order() {
         let expected = vec![vec![3], vec![2, 7], vec![5, 9]];
         let mut bst = TreeNode::new(3);
         bst.insert(2);
