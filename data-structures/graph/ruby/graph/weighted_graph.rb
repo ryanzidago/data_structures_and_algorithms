@@ -11,6 +11,9 @@ class City
   end
 end
 
+# this implementation of Dijkstra's algorithm uses an array for simplicity
+# instead of the commonly used priority queue
+# (see `unvisited_cities` variable)
 def dijkstra_shortest_path(starting_city, final_destination)
   cheapest_prices_table = {}
   cheapest_previous_stopover_city_table = {}
