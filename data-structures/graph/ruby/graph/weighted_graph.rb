@@ -1,3 +1,5 @@
+require 'set'
+
 class City
   attr_accessor :name, :routes
 
@@ -17,7 +19,7 @@ end
 def dijkstra_shortest_path(starting_city, final_destination)
   cheapest_prices_table = {}
   cheapest_previous_stopover_city_table = {}
-  unvisited_cities = []
+  unvisited_cities = Set[]
   visited_cities = {}
 
   cheapest_prices_table[starting_city.name] = 0
