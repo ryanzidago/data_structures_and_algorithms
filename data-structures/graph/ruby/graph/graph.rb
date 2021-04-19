@@ -65,7 +65,7 @@ def bfs(starting_vertex, search_value)
   while !queue.empty?
     current_vertex = queue.pop()
     return current_vertex if current_vertex.value == search_value
-    
+
     current_vertex.adjacent_vertices.each do |adjacent_vertex|
       if !visited_vertices[adjacent_vertex.value]
         visited_vertices[adjacent_vertex.value] = true

@@ -1,5 +1,4 @@
 require './graph.rb'
-require 'pry'
 
 RSpec.describe Vertex do
   describe "#new" do
@@ -65,7 +64,7 @@ RSpec.describe Vertex do
         cynthia = graph_factory()[2]
 
         maybe_alice = dfs(cynthia, "alice")
-        
+
         expect(maybe_alice).to be_truthy
         expect(alice.value).to eq(maybe_alice.value)
       end
