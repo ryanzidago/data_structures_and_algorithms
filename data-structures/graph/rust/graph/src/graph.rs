@@ -1,5 +1,6 @@
 use std::cell::RefCell;
 use std::collections::HashSet;
+use std::collections::VecDeque;
 use std::rc::Rc;
 
 #[derive(Debug, PartialEq)]
@@ -87,6 +88,68 @@ fn _dfs(
                         searched_value,
                         visited_vertices_set,
                     );
+                }
+            }
+        }
+    }
+
+    return None;
+}
+
+pub fn bfs_traverse(starting_vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
+    let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
+    let mut visited_vertices_set: HashSet<String> = HashSet::new();
+    let mut visited_vertices_values: Vec<String> = Vec::new();
+
+    visited_vertices_set.insert(starting_vertex.borrow().value.clone());
+    visited_vertices_values.push(starting_vertex.borrow().value.clone());
+    queue.push_back(Rc::clone(&starting_vertex));
+
+    while !queue.is_empty() {
+        if let Some(current_vertex) = queue.pop_front() {
+            for adjacent_vertex in current_vertex.borrow().adjacent_vertices.clone() {
+                let adjacent_vertex_value = adjacent_vertex.borrow().value.clone();
+                if !visited_vertices_set.contains(&adjacent_vertex_value) {
+                    visited_vertices_set.insert(adjacent_vertex_value.clone());
+                    visited_vertices_values.push(adjacent_vertex_value.clone());
+                    queue.push_back(Rc::clone(&adjacent_vertex));
+                }
+            }
+        }
+    }
+
+    visited_vertices_values
+}
+
+pub fn bfs(
+    starting_vertex: Rc<RefCell<Vertex>>,
+    searched_value: String,
+) -> Option<Rc<RefCell<Vertex>>> {
+    let mut visited_vertices_set: HashSet<String> = HashSet::new();
+    let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
+
+    visited_vertices_set.insert(starting_vertex.borrow().value.clone());
+    queue.push_back(starting_vertex);
+
+    _bfs(searched_value, &mut visited_vertices_set, &mut queue)
+}
+
+fn _bfs(
+    searched_value: String,
+    visited_vertices_set: &mut HashSet<String>,
+    queue: &mut VecDeque<Rc<RefCell<Vertex>>>,
+) -> Option<Rc<RefCell<Vertex>>> {
+    while !queue.is_empty() {
+        if let Some(current_vertex) = queue.pop_front() {
+            if current_vertex.borrow().value == searched_value {
+                return Some(current_vertex);
+            } else {
+                for adjacent_vertex in current_vertex.borrow().adjacent_vertices.clone() {
+                    let adjacent_vertex_value = adjacent_vertex.borrow().value.clone();
+                    if !visited_vertices_set.contains(&adjacent_vertex_value) {
+                        visited_vertices_set.insert(adjacent_vertex_value.clone());
+                        queue.push_back(adjacent_vertex);
+                    }
                 }
             }
         }
@@ -189,6 +252,112 @@ mod test {
 
     #[test]
     fn dfs_searches_for_a_vertex_by_its_value_and_returns_an_option() {
+        let alice = Vertex::new("Alice".to_string());
+        let bob = Vertex::new("Bob".to_string());
+        let fred = Vertex::new("Fred".to_string());
+        let helen = Vertex::new("Helen".to_string());
+        let candy = Vertex::new("Candy".to_string());
+        let derek = Vertex::new("Derek".to_string());
+        let elaine = Vertex::new("Elaine".to_string());
+        let gina = Vertex::new("Gina".to_string());
+        let irena = Vertex::new("Irena".to_string());
+
+        alice.borrow_mut().add_adjacent_vertex(bob.clone());
+        alice.borrow_mut().add_adjacent_vertex(candy.clone());
+        alice.borrow_mut().add_adjacent_vertex(derek.clone());
+        alice.borrow_mut().add_adjacent_vertex(elaine.clone());
+
+        bob.borrow_mut().add_adjacent_vertex(alice.clone());
+        bob.borrow_mut().add_adjacent_vertex(fred.clone());
+
+        fred.borrow_mut().add_adjacent_vertex(bob.clone());
+        fred.borrow_mut().add_adjacent_vertex(helen.clone());
+
+        helen.borrow_mut().add_adjacent_vertex(fred.clone());
+        helen.borrow_mut().add_adjacent_vertex(candy.clone());
+
+        candy.borrow_mut().add_adjacent_vertex(helen.clone());
+        candy.borrow_mut().add_adjacent_vertex(alice.clone());
+
+        derek.borrow_mut().add_adjacent_vertex(alice.clone());
+        derek.borrow_mut().add_adjacent_vertex(gina.clone());
+        derek.borrow_mut().add_adjacent_vertex(elaine.clone());
+
+        gina.borrow_mut().add_adjacent_vertex(derek.clone());
+        gina.borrow_mut().add_adjacent_vertex(irena.clone());
+
+        irena.borrow_mut().add_adjacent_vertex(irena.clone());
+
+        elaine.borrow_mut().add_adjacent_vertex(alice.clone());
+        elaine.borrow_mut().add_adjacent_vertex(derek.clone());
+
+        if let Some(found) = dfs(alice, "Irena".to_string()) {
+            assert_eq!(found, irena);
+        }
+
+        assert!(dfs(bob, "Martin".to_string()).is_none());
+    }
+
+    #[test]
+    fn bfs_traverse_traverses_a_graph_using_breadth_first_search_and_returns_a_vector_of_the_vertices_values(
+    ) {
+        let alice = Vertex::new("Alice".to_string());
+        let bob = Vertex::new("Bob".to_string());
+        let fred = Vertex::new("Fred".to_string());
+        let helen = Vertex::new("Helen".to_string());
+        let candy = Vertex::new("Candy".to_string());
+        let derek = Vertex::new("Derek".to_string());
+        let elaine = Vertex::new("Elaine".to_string());
+        let gina = Vertex::new("Gina".to_string());
+        let irena = Vertex::new("Irena".to_string());
+
+        alice.borrow_mut().add_adjacent_vertex(bob.clone());
+        alice.borrow_mut().add_adjacent_vertex(candy.clone());
+        alice.borrow_mut().add_adjacent_vertex(derek.clone());
+        alice.borrow_mut().add_adjacent_vertex(elaine.clone());
+
+        bob.borrow_mut().add_adjacent_vertex(alice.clone());
+        bob.borrow_mut().add_adjacent_vertex(fred.clone());
+
+        fred.borrow_mut().add_adjacent_vertex(bob.clone());
+        fred.borrow_mut().add_adjacent_vertex(helen.clone());
+
+        helen.borrow_mut().add_adjacent_vertex(fred.clone());
+        helen.borrow_mut().add_adjacent_vertex(candy.clone());
+
+        candy.borrow_mut().add_adjacent_vertex(helen.clone());
+        candy.borrow_mut().add_adjacent_vertex(alice.clone());
+
+        derek.borrow_mut().add_adjacent_vertex(alice.clone());
+        derek.borrow_mut().add_adjacent_vertex(gina.clone());
+        derek.borrow_mut().add_adjacent_vertex(elaine.clone());
+
+        gina.borrow_mut().add_adjacent_vertex(derek.clone());
+        gina.borrow_mut().add_adjacent_vertex(irena.clone());
+
+        irena.borrow_mut().add_adjacent_vertex(irena.clone());
+
+        elaine.borrow_mut().add_adjacent_vertex(alice.clone());
+        elaine.borrow_mut().add_adjacent_vertex(derek.clone());
+
+        let result = bfs_traverse(alice);
+        let expected = vec![
+            "Alice".to_string(),
+            "Bob".to_string(),
+            "Candy".to_string(),
+            "Derek".to_string(),
+            "Elaine".to_string(),
+            "Fred".to_string(),
+            "Helen".to_string(),
+            "Gina".to_string(),
+            "Irena".to_string(),
+        ];
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn bfs_searches_for_a_vertex_by_its_value_and_returns_an_option() {
         let alice = Vertex::new("Alice".to_string());
         let bob = Vertex::new("Bob".to_string());
         let fred = Vertex::new("Fred".to_string());
