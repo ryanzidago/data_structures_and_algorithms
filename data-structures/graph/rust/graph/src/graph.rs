@@ -26,11 +26,11 @@ impl Vertex {
 }
 
 pub fn dfs_traverse(vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
-    let mut visited_vertices_map: HashSet<String> = HashSet::new();
+    let mut visited_verticies_set: HashSet<String> = HashSet::new();
     let mut visited_vertices_values: Vec<String> = Vec::new();
     _dfs_traverse(
         vertex,
-        &mut visited_vertices_map,
+        &mut visited_verticies_set,
         &mut visited_vertices_values,
     );
 
@@ -39,20 +39,20 @@ pub fn dfs_traverse(vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
 
 fn _dfs_traverse(
     vertex: Rc<RefCell<Vertex>>,
-    visited_vertices_map: &mut HashSet<String>,
+    visited_verticies_set: &mut HashSet<String>,
     visited_vertices_values: &mut Vec<String>,
 ) {
     let value = vertex.borrow().value.clone();
 
     visited_vertices_values.push(value.clone());
-    visited_vertices_map.insert(value);
+    visited_verticies_set.insert(value);
 
     for adjacent_vertex in &vertex.borrow().adjacent_vertices {
         let value = adjacent_vertex.borrow().value.clone();
-        if !visited_vertices_map.contains(&value) {
+        if !visited_verticies_set.contains(&value) {
             _dfs_traverse(
                 adjacent_vertex.to_owned(),
-                visited_vertices_map,
+                visited_verticies_set,
                 visited_vertices_values,
             );
         }
