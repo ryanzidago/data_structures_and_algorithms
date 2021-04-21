@@ -144,19 +144,6 @@ mod test {
 
         let result = dfs_traverse(alice);
 
-        //
-        // assert_eq!(result.len(), 9);
-        //
-        // assert!(result.contains(&&"Alice".to_string()));
-        // assert!(result.contains(&&"Bob".to_string()));
-        // assert!(result.contains(&&"Fred".to_string()));
-        // assert!(result.contains(&&"Helen".to_string()));
-        // assert!(result.contains(&&"Candy".to_string()));
-        // assert!(result.contains(&&"Derek".to_string()));
-        // assert!(result.contains(&&"Gina".to_string()));
-        // assert!(result.contains(&&"Irena".to_string()));
-        // assert!(result.contains(&&"Elaine".to_string()));
-
         let expected = vec![
             "Alice", "Bob", "Fred", "Helen", "Candy", "Derek", "Gina", "Irena", "Elaine",
         ];
