@@ -59,7 +59,7 @@ fn _dfs_traverse(
     }
 }
 
-fn dfs(vertex: Rc<RefCell<Vertex>>, searched_value: String) -> Option<Rc<RefCell<Vertex>>> {
+pub fn dfs(vertex: Rc<RefCell<Vertex>>, searched_value: String) -> Option<Rc<RefCell<Vertex>>> {
     let mut visited_vertices_set: HashSet<String> = HashSet::new();
     _dfs(Some(vertex), searched_value, &mut visited_vertices_set)
 }
