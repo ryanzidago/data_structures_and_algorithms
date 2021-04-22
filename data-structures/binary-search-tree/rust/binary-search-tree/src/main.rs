@@ -67,15 +67,14 @@ pub mod binary_search_tree {
     }
 
     fn _invert(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-        if let Some(node) = root {
-            let left_child = node.borrow().left_child.clone();
-            let right_child = node.borrow().right_child.clone();
+        let node = root?;
 
-            node.borrow_mut().left_child = _invert(right_child);
-            node.borrow_mut().right_child = _invert(left_child);
-            return Some(node);
-        }
-        None
+        let left_child = node.borrow().left_child.clone();
+        let right_child = node.borrow().right_child.clone();
+
+        node.borrow_mut().left_child = _invert(right_child);
+        node.borrow_mut().right_child = _invert(left_child);
+        return Some(node);
     }
 
     pub fn pre_order_traversal(root: TreeNode) -> Vec<i32> {
