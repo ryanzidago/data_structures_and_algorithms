@@ -3,6 +3,7 @@ use std::collections::HashSet;
 use std::collections::VecDeque;
 use std::rc::Rc;
 
+// Graph with adjacency list
 #[derive(Debug, PartialEq)]
 pub struct Vertex {
     value: String,
@@ -26,6 +27,15 @@ impl Vertex {
     }
 }
 
+// Algorithm:
+// 1. From the starting vertex within the graph
+// 2. Add the current vertex to the HashSet, to mark it as being visited
+// 3. Iterate through the current vertex's adjacent vertices
+// 4. for each adjacent vertex, ignore the adjacent vertex if it has already been visited
+// otherwise, recursively perform depth-first search on the adjacent vertex
+
+// Time Complexity:
+// O(V + E)
 pub fn dfs_traverse(vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
     let mut visited_vertices_set: HashSet<String> = HashSet::new();
     let mut visited_vertices_values: Vec<String> = Vec::new();
@@ -96,6 +106,19 @@ fn _dfs(
     return None;
 }
 
+// Algorithm:
+// 1. Start from a given vertex within the graph
+// 2. Add the vertex to the HashSet to mark it has being visited
+// 3. add the vertex to a queue
+// 4. for as long as the queue is not empty
+// 5. remove the first vertex from the queue (this vertex becomes the current vertex)
+// 6. iterate over the current vertex's adjacent vertices
+// 7. ignore the adjacent vertex that has already been visited
+// 8. if the adjacent vertex has not been visited, mark it as visited by putting it in the HashSet and add it to the queue
+// 9. repeat the loop from step 4 until the queue is empty
+
+// Time Complexity:
+// O(V + E)
 pub fn bfs_traverse(starting_vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
     let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
     let mut visited_vertices_set: HashSet<String> = HashSet::new();
