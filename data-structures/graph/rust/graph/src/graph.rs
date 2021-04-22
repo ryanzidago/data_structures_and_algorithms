@@ -30,6 +30,8 @@ impl Vertex {
 struct Graph {}
 
 impl Graph {
+    // Depth-first search (traversal)
+
     // Algorithm:
     // 1. From the starting vertex within the graph
     // 2. Add the current vertex to the HashSet, to mark it as being visited
@@ -39,6 +41,7 @@ impl Graph {
 
     // Time Complexity:
     // O(V + E)
+    
     pub fn dfs_traverse(vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
         let mut visited_vertices_set: HashSet<String> = HashSet::new();
         let mut visited_vertices_values: Vec<String> = Vec::new();
@@ -109,6 +112,8 @@ impl Graph {
         return None;
     }
 
+    // Breadth-first search (traversal)
+
     // Algorithm:
     // 1. Start from a given vertex within the graph
     // 2. Add the vertex to the HashSet to mark it has being visited
@@ -122,6 +127,7 @@ impl Graph {
 
     // Time Complexity:
     // O(V + E)
+
     pub fn bfs_traverse(starting_vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
         let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
         let mut visited_vertices_set: HashSet<String> = HashSet::new();
