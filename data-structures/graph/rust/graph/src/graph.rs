@@ -131,14 +131,6 @@ pub fn bfs(
     visited_vertices_set.insert(starting_vertex.borrow().value.clone());
     queue.push_back(starting_vertex);
 
-    _bfs(searched_value, &mut visited_vertices_set, &mut queue)
-}
-
-fn _bfs(
-    searched_value: String,
-    visited_vertices_set: &mut HashSet<String>,
-    queue: &mut VecDeque<Rc<RefCell<Vertex>>>,
-) -> Option<Rc<RefCell<Vertex>>> {
     while !queue.is_empty() {
         if let Some(current_vertex) = queue.pop_front() {
             if current_vertex.borrow().value == searched_value {
