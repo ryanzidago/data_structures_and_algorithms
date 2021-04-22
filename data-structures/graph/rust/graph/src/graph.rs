@@ -27,150 +27,154 @@ impl Vertex {
     }
 }
 
-// Algorithm:
-// 1. From the starting vertex within the graph
-// 2. Add the current vertex to the HashSet, to mark it as being visited
-// 3. Iterate through the current vertex's adjacent vertices
-// 4. for each adjacent vertex, ignore the adjacent vertex if it has already been visited
-// otherwise, recursively perform depth-first search on the adjacent vertex
+struct Graph {}
 
-// Time Complexity:
-// O(V + E)
-pub fn dfs_traverse(vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
-    let mut visited_vertices_set: HashSet<String> = HashSet::new();
-    let mut visited_vertices_values: Vec<String> = Vec::new();
-    _dfs_traverse(
-        vertex,
-        &mut visited_vertices_set,
-        &mut visited_vertices_values,
-    );
+impl Graph {
+    // Algorithm:
+    // 1. From the starting vertex within the graph
+    // 2. Add the current vertex to the HashSet, to mark it as being visited
+    // 3. Iterate through the current vertex's adjacent vertices
+    // 4. for each adjacent vertex, ignore the adjacent vertex if it has already been visited
+    // otherwise, recursively perform depth-first search on the adjacent vertex
 
-    visited_vertices_values
-}
+    // Time Complexity:
+    // O(V + E)
+    pub fn dfs_traverse(vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
+        let mut visited_vertices_set: HashSet<String> = HashSet::new();
+        let mut visited_vertices_values: Vec<String> = Vec::new();
+        Graph::_dfs_traverse(
+            vertex,
+            &mut visited_vertices_set,
+            &mut visited_vertices_values,
+        );
 
-fn _dfs_traverse(
-    vertex: Rc<RefCell<Vertex>>,
-    visited_vertices_set: &mut HashSet<String>,
-    visited_vertices_values: &mut Vec<String>,
-) {
-    let value = vertex.borrow().value.clone();
-
-    visited_vertices_values.push(value.clone());
-    visited_vertices_set.insert(value);
-
-    for adjacent_vertex in &vertex.borrow().adjacent_vertices {
-        let value = adjacent_vertex.borrow().value.clone();
-        if !visited_vertices_set.contains(&value) {
-            _dfs_traverse(
-                adjacent_vertex.to_owned(),
-                visited_vertices_set,
-                visited_vertices_values,
-            );
-        }
+        visited_vertices_values
     }
-}
 
-pub fn dfs(vertex: Rc<RefCell<Vertex>>, searched_value: String) -> Option<Rc<RefCell<Vertex>>> {
-    let mut visited_vertices_set: HashSet<String> = HashSet::new();
-    _dfs(Some(vertex), searched_value, &mut visited_vertices_set)
-}
-
-fn _dfs(
-    vertex: Option<Rc<RefCell<Vertex>>>,
-    searched_value: String,
-    visited_vertices_set: &mut HashSet<String>,
-) -> Option<Rc<RefCell<Vertex>>> {
-    if let Some(vertex) = vertex {
-        if vertex.borrow().value == searched_value {
-            return Some(vertex);
-        }
-
+    fn _dfs_traverse(
+        vertex: Rc<RefCell<Vertex>>,
+        visited_vertices_set: &mut HashSet<String>,
+        visited_vertices_values: &mut Vec<String>,
+    ) {
         let value = vertex.borrow().value.clone();
-        visited_vertices_set.insert(value.clone());
+
+        visited_vertices_values.push(value.clone());
+        visited_vertices_set.insert(value);
 
         for adjacent_vertex in &vertex.borrow().adjacent_vertices {
+            let value = adjacent_vertex.borrow().value.clone();
             if !visited_vertices_set.contains(&value) {
-                if adjacent_vertex.borrow().value == searched_value {
-                    return Some(adjacent_vertex.to_owned());
-                } else {
-                    return _dfs(
-                        Some(adjacent_vertex.to_owned()),
-                        searched_value,
-                        visited_vertices_set,
-                    );
-                }
+                Graph::_dfs_traverse(
+                    adjacent_vertex.to_owned(),
+                    visited_vertices_set,
+                    visited_vertices_values,
+                );
             }
         }
     }
 
-    return None;
-}
-
-// Algorithm:
-// 1. Start from a given vertex within the graph
-// 2. Add the vertex to the HashSet to mark it has being visited
-// 3. add the vertex to a queue
-// 4. for as long as the queue is not empty
-// 5. remove the first vertex from the queue (this vertex becomes the current vertex)
-// 6. iterate over the current vertex's adjacent vertices
-// 7. ignore the adjacent vertex that has already been visited
-// 8. if the adjacent vertex has not been visited, mark it as visited by putting it in the HashSet and add it to the queue
-// 9. repeat the loop from step 4 until the queue is empty
-
-// Time Complexity:
-// O(V + E)
-pub fn bfs_traverse(starting_vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
-    let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
-    let mut visited_vertices_set: HashSet<String> = HashSet::new();
-    let mut visited_vertices_values: Vec<String> = Vec::new();
-
-    visited_vertices_set.insert(starting_vertex.borrow().value.clone());
-    visited_vertices_values.push(starting_vertex.borrow().value.clone());
-    queue.push_back(Rc::clone(&starting_vertex));
-
-    while !queue.is_empty() {
-        if let Some(current_vertex) = queue.pop_front() {
-            for adjacent_vertex in current_vertex.borrow().adjacent_vertices.clone() {
-                let adjacent_vertex_value = adjacent_vertex.borrow().value.clone();
-                if !visited_vertices_set.contains(&adjacent_vertex_value) {
-                    visited_vertices_set.insert(adjacent_vertex_value.clone());
-                    visited_vertices_values.push(adjacent_vertex_value.clone());
-                    queue.push_back(Rc::clone(&adjacent_vertex));
-                }
-            }
-        }
+    pub fn dfs(vertex: Rc<RefCell<Vertex>>, searched_value: String) -> Option<Rc<RefCell<Vertex>>> {
+        let mut visited_vertices_set: HashSet<String> = HashSet::new();
+        Graph::_dfs(Some(vertex), searched_value, &mut visited_vertices_set)
     }
 
-    visited_vertices_values
-}
+    fn _dfs(
+        vertex: Option<Rc<RefCell<Vertex>>>,
+        searched_value: String,
+        visited_vertices_set: &mut HashSet<String>,
+    ) -> Option<Rc<RefCell<Vertex>>> {
+        if let Some(vertex) = vertex {
+            if vertex.borrow().value == searched_value {
+                return Some(vertex);
+            }
 
-pub fn bfs(
-    starting_vertex: Rc<RefCell<Vertex>>,
-    searched_value: String,
-) -> Option<Rc<RefCell<Vertex>>> {
-    let mut visited_vertices_set: HashSet<String> = HashSet::new();
-    let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
+            let value = vertex.borrow().value.clone();
+            visited_vertices_set.insert(value.clone());
 
-    visited_vertices_set.insert(starting_vertex.borrow().value.clone());
-    queue.push_back(starting_vertex);
-
-    while !queue.is_empty() {
-        if let Some(current_vertex) = queue.pop_front() {
-            if current_vertex.borrow().value == searched_value {
-                return Some(current_vertex);
-            } else {
-                for adjacent_vertex in current_vertex.borrow().adjacent_vertices.clone() {
-                    let adjacent_vertex_value = adjacent_vertex.borrow().value.clone();
-                    if !visited_vertices_set.contains(&adjacent_vertex_value) {
-                        visited_vertices_set.insert(adjacent_vertex_value.clone());
-                        queue.push_back(adjacent_vertex);
+            for adjacent_vertex in &vertex.borrow().adjacent_vertices {
+                if !visited_vertices_set.contains(&value) {
+                    if adjacent_vertex.borrow().value == searched_value {
+                        return Some(adjacent_vertex.to_owned());
+                    } else {
+                        return Graph::_dfs(
+                            Some(adjacent_vertex.to_owned()),
+                            searched_value,
+                            visited_vertices_set,
+                        );
                     }
                 }
             }
         }
+
+        return None;
     }
 
-    return None;
+    // Algorithm:
+    // 1. Start from a given vertex within the graph
+    // 2. Add the vertex to the HashSet to mark it has being visited
+    // 3. add the vertex to a queue
+    // 4. for as long as the queue is not empty
+    // 5. remove the first vertex from the queue (this vertex becomes the current vertex)
+    // 6. iterate over the current vertex's adjacent vertices
+    // 7. ignore the adjacent vertex that has already been visited
+    // 8. if the adjacent vertex has not been visited, mark it as visited by putting it in the HashSet and add it to the queue
+    // 9. repeat the loop from step 4 until the queue is empty
+
+    // Time Complexity:
+    // O(V + E)
+    pub fn bfs_traverse(starting_vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
+        let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
+        let mut visited_vertices_set: HashSet<String> = HashSet::new();
+        let mut visited_vertices_values: Vec<String> = Vec::new();
+
+        visited_vertices_set.insert(starting_vertex.borrow().value.clone());
+        visited_vertices_values.push(starting_vertex.borrow().value.clone());
+        queue.push_back(Rc::clone(&starting_vertex));
+
+        while !queue.is_empty() {
+            if let Some(current_vertex) = queue.pop_front() {
+                for adjacent_vertex in current_vertex.borrow().adjacent_vertices.clone() {
+                    let adjacent_vertex_value = adjacent_vertex.borrow().value.clone();
+                    if !visited_vertices_set.contains(&adjacent_vertex_value) {
+                        visited_vertices_set.insert(adjacent_vertex_value.clone());
+                        visited_vertices_values.push(adjacent_vertex_value.clone());
+                        queue.push_back(Rc::clone(&adjacent_vertex));
+                    }
+                }
+            }
+        }
+
+        visited_vertices_values
+    }
+
+    pub fn bfs(
+        starting_vertex: Rc<RefCell<Vertex>>,
+        searched_value: String,
+    ) -> Option<Rc<RefCell<Vertex>>> {
+        let mut visited_vertices_set: HashSet<String> = HashSet::new();
+        let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
+
+        visited_vertices_set.insert(starting_vertex.borrow().value.clone());
+        queue.push_back(starting_vertex);
+
+        while !queue.is_empty() {
+            if let Some(current_vertex) = queue.pop_front() {
+                if current_vertex.borrow().value == searched_value {
+                    return Some(current_vertex);
+                } else {
+                    for adjacent_vertex in current_vertex.borrow().adjacent_vertices.clone() {
+                        let adjacent_vertex_value = adjacent_vertex.borrow().value.clone();
+                        if !visited_vertices_set.contains(&adjacent_vertex_value) {
+                            visited_vertices_set.insert(adjacent_vertex_value.clone());
+                            queue.push_back(adjacent_vertex);
+                        }
+                    }
+                }
+            }
+        }
+
+        return None;
+    }
 }
 
 #[cfg(test)]
@@ -256,7 +260,7 @@ mod test {
         elaine.borrow_mut().add_adjacent_vertex(alice.clone());
         elaine.borrow_mut().add_adjacent_vertex(derek.clone());
 
-        let result = dfs_traverse(alice);
+        let result = Graph::dfs_traverse(alice);
 
         let expected = vec![
             "Alice", "Bob", "Fred", "Helen", "Candy", "Derek", "Gina", "Irena", "Elaine",
@@ -306,11 +310,11 @@ mod test {
         elaine.borrow_mut().add_adjacent_vertex(alice.clone());
         elaine.borrow_mut().add_adjacent_vertex(derek.clone());
 
-        if let Some(found) = dfs(alice, "Irena".to_string()) {
+        if let Some(found) = Graph::dfs(alice, "Irena".to_string()) {
             assert_eq!(found, irena);
         }
 
-        assert!(dfs(bob, "Martin".to_string()).is_none());
+        assert!(Graph::dfs(bob, "Martin".to_string()).is_none());
     }
 
     #[test]
@@ -355,7 +359,7 @@ mod test {
         elaine.borrow_mut().add_adjacent_vertex(alice.clone());
         elaine.borrow_mut().add_adjacent_vertex(derek.clone());
 
-        let result = bfs_traverse(alice);
+        let result = Graph::bfs_traverse(alice);
         let expected = vec![
             "Alice".to_string(),
             "Bob".to_string(),
@@ -412,10 +416,10 @@ mod test {
         elaine.borrow_mut().add_adjacent_vertex(alice.clone());
         elaine.borrow_mut().add_adjacent_vertex(derek.clone());
 
-        if let Some(found) = dfs(alice, "Irena".to_string()) {
+        if let Some(found) = Graph::dfs(alice, "Irena".to_string()) {
             assert_eq!(found, irena);
         }
 
-        assert!(dfs(bob, "Martin".to_string()).is_none());
+        assert!(Graph::dfs(bob, "Martin".to_string()).is_none());
     }
 }
