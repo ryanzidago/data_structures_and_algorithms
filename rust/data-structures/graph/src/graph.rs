@@ -1,35 +1,48 @@
 use std::cell::RefCell;
 use std::collections::HashSet;
 use std::collections::VecDeque;
+use std::hash::Hash;
+use std::marker::PhantomData;
 use std::rc::Rc;
 
 // Graph with adjacency list
 #[derive(Debug, PartialEq)]
-pub struct Vertex {
-    value: String,
-    adjacent_vertices: Vec<Rc<RefCell<Vertex>>>,
+pub struct Vertex<T> {
+    value: T,
+    edges: Vec<Edge<T>>,
 }
 
-impl Vertex {
-    pub fn new(value: String) -> Rc<RefCell<Vertex>> {
+type Edge<T> = Rc<RefCell<Vertex<T>>>;
+
+impl<T> Vertex<T>
+where
+    T: Clone + PartialEq,
+{
+    pub fn new(value: T) -> Rc<RefCell<Vertex<T>>> {
         Rc::new(RefCell::new(Vertex {
             value,
-            adjacent_vertices: Vec::new(),
+            edges: Vec::new(),
         }))
     }
 
-    pub fn add_adjacent_vertex(&mut self, vertex: Rc<RefCell<Vertex>>) {
-        if self.adjacent_vertices.contains(&vertex) {
+    pub fn add_adjacent_vertex(&mut self, vertex: Rc<RefCell<Vertex<T>>>) {
+        if self.edges.contains(&vertex) {
             return;
         }
 
-        self.adjacent_vertices.push(Rc::clone(&vertex));
+        self.edges.push(Rc::clone(&vertex));
     }
 }
 
-struct Graph {}
+#[derive(Debug, PartialEq)]
+pub struct Graph<T> {
+    phantom: PhantomData<T>,
+}
 
-impl Graph {
+impl<T> Graph<T>
+where
+    T: Clone + PartialEq + Eq + Hash,
+{
     // Depth-first search (traversal)
 
     // Algorithm:
@@ -41,10 +54,10 @@ impl Graph {
 
     // Time Complexity:
     // O(V + E)
-    
-    pub fn dfs_traverse(vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
-        let mut visited_vertices_set: HashSet<String> = HashSet::new();
-        let mut visited_vertices_values: Vec<String> = Vec::new();
+
+    pub fn dfs_traverse(vertex: Rc<RefCell<Vertex<T>>>) -> Vec<T> {
+        let mut visited_vertices_set: HashSet<T> = HashSet::new();
+        let mut visited_vertices_values: Vec<T> = Vec::new();
         Graph::_dfs_traverse(
             vertex,
             &mut visited_vertices_set,
@@ -55,16 +68,16 @@ impl Graph {
     }
 
     fn _dfs_traverse(
-        vertex: Rc<RefCell<Vertex>>,
-        visited_vertices_set: &mut HashSet<String>,
-        visited_vertices_values: &mut Vec<String>,
+        vertex: Rc<RefCell<Vertex<T>>>,
+        visited_vertices_set: &mut HashSet<T>,
+        visited_vertices_values: &mut Vec<T>,
     ) {
         let value = vertex.borrow().value.clone();
 
         visited_vertices_values.push(value.clone());
         visited_vertices_set.insert(value);
 
-        for adjacent_vertex in &vertex.borrow().adjacent_vertices {
+        for adjacent_vertex in &vertex.borrow().edges {
             let value = adjacent_vertex.borrow().value.clone();
             if !visited_vertices_set.contains(&value) {
                 Graph::_dfs_traverse(
@@ -76,16 +89,19 @@ impl Graph {
         }
     }
 
-    pub fn dfs(vertex: Rc<RefCell<Vertex>>, searched_value: String) -> Option<Rc<RefCell<Vertex>>> {
-        let mut visited_vertices_set: HashSet<String> = HashSet::new();
+    pub fn dfs(
+        vertex: Rc<RefCell<Vertex<T>>>,
+        searched_value: T,
+    ) -> Option<Rc<RefCell<Vertex<T>>>> {
+        let mut visited_vertices_set: HashSet<T> = HashSet::new();
         Graph::_dfs(Some(vertex), searched_value, &mut visited_vertices_set)
     }
 
     fn _dfs(
-        vertex: Option<Rc<RefCell<Vertex>>>,
-        searched_value: String,
-        visited_vertices_set: &mut HashSet<String>,
-    ) -> Option<Rc<RefCell<Vertex>>> {
+        vertex: Option<Rc<RefCell<Vertex<T>>>>,
+        searched_value: T,
+        visited_vertices_set: &mut HashSet<T>,
+    ) -> Option<Rc<RefCell<Vertex<T>>>> {
         if let Some(vertex) = vertex {
             if vertex.borrow().value == searched_value {
                 return Some(vertex);
@@ -94,7 +110,7 @@ impl Graph {
             let value = vertex.borrow().value.clone();
             visited_vertices_set.insert(value.clone());
 
-            for adjacent_vertex in &vertex.borrow().adjacent_vertices {
+            for adjacent_vertex in &vertex.borrow().edges {
                 if !visited_vertices_set.contains(&value) {
                     if adjacent_vertex.borrow().value == searched_value {
                         return Some(adjacent_vertex.to_owned());
@@ -128,10 +144,10 @@ impl Graph {
     // Time Complexity:
     // O(V + E)
 
-    pub fn bfs_traverse(starting_vertex: Rc<RefCell<Vertex>>) -> Vec<String> {
-        let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
-        let mut visited_vertices_set: HashSet<String> = HashSet::new();
-        let mut visited_vertices_values: Vec<String> = Vec::new();
+    pub fn bfs_traverse(starting_vertex: Rc<RefCell<Vertex<T>>>) -> Vec<T> {
+        let mut queue: VecDeque<Rc<RefCell<Vertex<T>>>> = VecDeque::new();
+        let mut visited_vertices_set: HashSet<T> = HashSet::new();
+        let mut visited_vertices_values: Vec<T> = Vec::new();
 
         visited_vertices_set.insert(starting_vertex.borrow().value.clone());
         visited_vertices_values.push(starting_vertex.borrow().value.clone());
@@ -139,7 +155,7 @@ impl Graph {
 
         while !queue.is_empty() {
             if let Some(current_vertex) = queue.pop_front() {
-                for adjacent_vertex in current_vertex.borrow().adjacent_vertices.clone() {
+                for adjacent_vertex in current_vertex.borrow().edges.clone() {
                     let adjacent_vertex_value = adjacent_vertex.borrow().value.clone();
                     if !visited_vertices_set.contains(&adjacent_vertex_value) {
                         visited_vertices_set.insert(adjacent_vertex_value.clone());
@@ -154,11 +170,11 @@ impl Graph {
     }
 
     pub fn bfs(
-        starting_vertex: Rc<RefCell<Vertex>>,
-        searched_value: String,
-    ) -> Option<Rc<RefCell<Vertex>>> {
-        let mut visited_vertices_set: HashSet<String> = HashSet::new();
-        let mut queue: VecDeque<Rc<RefCell<Vertex>>> = VecDeque::new();
+        starting_vertex: Rc<RefCell<Vertex<T>>>,
+        searched_value: T,
+    ) -> Option<Rc<RefCell<Vertex<T>>>> {
+        let mut visited_vertices_set: HashSet<T> = HashSet::new();
+        let mut queue: VecDeque<Rc<RefCell<Vertex<T>>>> = VecDeque::new();
 
         visited_vertices_set.insert(starting_vertex.borrow().value.clone());
         queue.push_back(starting_vertex);
@@ -168,7 +184,7 @@ impl Graph {
                 if current_vertex.borrow().value == searched_value {
                     return Some(current_vertex);
                 } else {
-                    for adjacent_vertex in current_vertex.borrow().adjacent_vertices.clone() {
+                    for adjacent_vertex in current_vertex.borrow().edges.clone() {
                         let adjacent_vertex_value = adjacent_vertex.borrow().value.clone();
                         if !visited_vertices_set.contains(&adjacent_vertex_value) {
                             visited_vertices_set.insert(adjacent_vertex_value.clone());
@@ -192,7 +208,7 @@ mod test {
         let new_vertex = Vertex::new("Alice".to_string());
         let expected = Rc::new(RefCell::new(Vertex {
             value: "Alice".to_string(),
-            adjacent_vertices: vec![],
+            edges: vec![],
         }));
 
         assert_eq!(new_vertex, expected);
@@ -207,8 +223,8 @@ mod test {
         alice.borrow_mut().add_adjacent_vertex(bob.clone());
         alice.borrow_mut().add_adjacent_vertex(cynthia.clone());
 
-        let bob_as_alice_adjacent_vertex = alice.borrow().adjacent_vertices[0].clone();
-        let cynthia_as_alice_adjacent_vertex = alice.borrow().adjacent_vertices[1].clone();
+        let bob_as_alice_adjacent_vertex = alice.borrow().edges[0].clone();
+        let cynthia_as_alice_adjacent_vertex = alice.borrow().edges[1].clone();
 
         assert_eq!(bob, bob_as_alice_adjacent_vertex);
         assert_eq!(cynthia, cynthia_as_alice_adjacent_vertex);
@@ -222,7 +238,7 @@ mod test {
         alice.borrow_mut().add_adjacent_vertex(bob.clone());
         alice.borrow_mut().add_adjacent_vertex(bob.clone());
 
-        assert_eq!(1, alice.borrow().adjacent_vertices.len());
+        assert_eq!(1, alice.borrow().edges.len());
     }
 
     #[test]
