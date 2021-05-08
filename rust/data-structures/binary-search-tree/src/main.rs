@@ -59,6 +59,53 @@ pub mod binary_search_tree {
         }
     }
 
+    pub fn to_sexprs(root: TreeNode) -> String {
+        _to_sexpres(Some(Rc::new(RefCell::new(root))))
+    }
+
+    fn _to_sexpres(root: Option<Rc<RefCell<TreeNode>>>) -> String {
+        match root {
+            None => "()".to_string(),
+            Some(root) => format!(
+                "({} {} {})",
+                root.borrow().value,
+                _to_sexpres(root.borrow().left_child.clone()),
+                _to_sexpres(root.borrow().right_child.clone())
+            ),
+        }
+    }
+
+    pub fn serialize(root: TreeNode) -> String {
+        _serialize(Some(Rc::new(RefCell::new(root))))
+    }
+
+    fn _serialize(root: Option<Rc<RefCell<TreeNode>>>) -> String {
+        match root {
+            None => "#".to_string(),
+            Some(root) => format!(
+                "{} {} {}",
+                root.borrow().value,
+                _serialize(root.borrow().left_child.clone()),
+                _serialize(root.borrow().right_child.clone())
+            ),
+        }
+    }
+
+    // "10 5 3 # # 7 # # 15 12 # # 18 # #"
+    pub fn deserialize(string: String) -> Option<Rc<RefCell<TreeNode>>> {
+        let mut iter = string.split_whitespace();
+        let val = iter.next()?.parse::<i32>().ok()?;
+        let mut bst = TreeNode::new(val);
+        for value in iter {
+            if value != "#" {
+                let value = value.parse::<i32>().ok().unwrap();
+                bst.insert(value);
+            }
+        }
+
+        Some(Rc::new(RefCell::new(bst)))
+    }
+
     pub fn invert(root: TreeNode) -> TreeNode {
         _invert(Some(Rc::new(RefCell::new(root))))
             .unwrap()
@@ -241,6 +288,71 @@ mod test {
         };
 
         assert_eq!(bst, expected);
+    }
+
+    #[test]
+    fn to_sexprs_serizalizes_a_bst_to_a_sexpres() {
+        let bst = TreeNode {
+            value: 2,
+            left_child: Some(Rc::new(RefCell::new(TreeNode {
+                value: 1,
+                left_child: None,
+                right_child: None,
+            }))),
+            right_child: Some(Rc::new(RefCell::new(TreeNode {
+                value: 3,
+                left_child: None,
+                right_child: None,
+            }))),
+        };
+
+        let sexprs = crate::binary_search_tree::to_sexprs(bst);
+        assert_eq!(sexprs, "(2 (1 () ()) (3 () ()))".to_string());
+    }
+
+    #[test]
+    fn serialize_converts_a_bst_to_a_string_representation() {
+        let mut bst = TreeNode::new(2);
+        bst.insert(1);
+        bst.insert(3);
+
+        let serialized_bst = crate::binary_search_tree::serialize(bst);
+        assert_eq!(serialized_bst, "2 1 # # 3 # #".to_string());
+
+        let mut bst = TreeNode::new(10);
+        bst.insert(5);
+        bst.insert(15);
+        bst.insert(3);
+        bst.insert(7);
+        bst.insert(12);
+        bst.insert(18);
+
+        let serialized_bst = crate::binary_search_tree::serialize(bst);
+        assert_eq!(
+            serialized_bst,
+            "10 5 3 # # 7 # # 15 12 # # 18 # #".to_string()
+        );
+    }
+
+    #[test]
+    fn deserialize_convert_a_string_representing_a_bst_to_a_bst() {
+        let mut expected_bst = TreeNode::new(10);
+        expected_bst.insert(5);
+        expected_bst.insert(15);
+        expected_bst.insert(3);
+        expected_bst.insert(7);
+        expected_bst.insert(12);
+        expected_bst.insert(18);
+
+        let deserialized_bst =
+            crate::binary_search_tree::deserialize("10 5 3 # # 7 # # 15 12 # # 18 # #".to_string());
+
+        assert_eq!(deserialized_bst, Some(Rc::new(RefCell::new(expected_bst))));
+    }
+
+    #[test]
+    fn deserialize_on_an_empty_string() {
+        assert_eq!(None, crate::binary_search_tree::deserialize("".to_string()));
     }
 
     #[test]
