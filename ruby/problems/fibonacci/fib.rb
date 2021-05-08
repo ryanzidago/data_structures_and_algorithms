@@ -30,6 +30,3 @@ def fib3(n)
 
     return next_n
 end
-
-puts(fib2(100))
-puts(fib3(100))
