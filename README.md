@@ -5,11 +5,8 @@
 ## Quicksort
 
 https://stackoverflow.com/questions/70402/why-is-quicksort-better-than-mergesort
-
 https://stackoverflow.com/questions/164163/quicksort-choosing-the-pivot
-
 https://www.khanacademy.org/computing/computer-science/algorithms/quick-sort/a/overview-of-quicksort
-
 https://programmingpraxis.com/2016/11/08/a-median-of-three-killer-sequence/
 
 ## String Search
@@ -23,6 +20,7 @@ https://news.ycombinator.com/item?id=26910982
 https://golang.org/src/strings/search.go
 
 ## Gale-Shapley Algorithm
+https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm
 https://en.wikipedia.org/wiki/Stable_marriage_problem
 https://www.youtube.com/watch?v=0m_YW1zVs-Q
 https://www.sigcomm.org/sites/default/files/ccr/papers/2015/July/0000000-0000009.pdf
