@@ -172,6 +172,7 @@ pub mod binary_search_tree {
         result.clone()
     }
 
+    // uses breadth-first search
     pub fn level_order_traversal(root: TreeNode) -> Vec<Vec<i32>> {
         let mut queue: VecDeque<Rc<RefCell<TreeNode>>> = VecDeque::new();
         let mut result: Vec<Vec<i32>> = Vec::new();
