@@ -37,9 +37,8 @@ end
 
 class Marriage
     def self.stable_match(men, women)
-
-        while !men_who_are_not_engaged_and_havent_proposed_to_every_woman(men).empty?
-            available_men = men_who_are_not_engaged_and_havent_proposed_to_every_woman(men)
+        available_men = men_who_are_not_engaged_and_havent_proposed_to_every_woman(men)
+        while !available_men.empty?
             man = available_men.first()
             woman_name = man.preferences.shift()
             woman = women[woman_name]
@@ -48,18 +47,17 @@ class Marriage
                 man.engaged_to = woman.name
                 woman.engaged_to = man.name
             else
-                man_name_ = woman.engaged_to
-                if woman.preferences.index(man_name_) < woman.preferences.index(man.name)
-                    man.engaged_to = nil
-                else
-                    man_ = men[man_name_]
-                    man_.engaged_to = nil
-                    man_.preferences.delete(woman.name)
+                _man_name = woman.engaged_to
+                if woman.preferences.index(_man_name) > woman.preferences.index(man.name)
+                    _man = men[_man_name]
+                    _man.engaged_to = nil
+                    _man.preferences.delete(woman.name)
 
                     man.engaged_to = woman.name
                     woman.engaged_to = man.name
                 end
             end
+            available_men = men_who_are_not_engaged_and_havent_proposed_to_every_woman(men)
         end
     end
 
