@@ -65,3 +65,9 @@ class Marriage
         men.values.filter { |man| !man.engaged_to and !man.preferences.empty? }
     end
 end
+
+# What happens if you add bisexual individuals / or more men than women and vice versa?
+# What happens if some individuals do not which to be married?
+# What happens if the women propose first?
+# What happens if the men/women propose first alternatively?
+# What happens if we change the order of preferences? Does it result in the same stable matching?
