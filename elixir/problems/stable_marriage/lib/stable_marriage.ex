@@ -61,7 +61,7 @@ defmodule StableMarriage do
 
   # `stable?/2` stops the algorithm as soon as every man is engaged to a woman
   # it is done by checking that the number of keys in `state`
-  # is equal to two times the number of keys in `men` and in `women`
+  # is equal to the number of keys in `men` plus the number of keys in `women`
   defp stable?(men, women, state) do
     length(Map.keys(men)) + length(Map.keys(women)) == length(Map.keys(state))
   end
