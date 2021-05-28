@@ -14,15 +14,9 @@ defmodule StableMarriage do
     do_match(men, women, _state = %{}, score, _stable? = false)
   end
 
-  # `state` is a map holding all the couples
+  # `state` is a map holding all the couples:
   # if "a" and "z" are a couple
   # then `state` will be equal to %{"a" => "z", "z" => "a"}
-  #
-  # `score` is used to quickly find out which man prefers the woman
-  #
-  # `stable?` stops the algorithm as soon as every man is paired to a woman
-  # it is done by checking that the number of keys in `state`
-  # is equal to two times the number of keys in `men` (one time for the men themselves and another time for the women)
   defp do_match(men, _women, state, _score, true) do
     men_keys = Map.keys(men)
     for {k, v} <- state, k in men_keys, do: {k, v}
@@ -32,16 +26,16 @@ defmodule StableMarriage do
     {men, state} =
       Enum.reduce(men, {men, state}, fn
         {m1, [w | preferences]}, {men, state} ->
-          if m1_single? = !state[m1] do
+          if _m1_single? = !state[m1] do
             w_single? = !state[w]
             m2 = if w_single?, do: nil, else: state[w]
             m1_prefered_to_m2? = if m2, do: score[w][m1] < score[w][m2], else: true
 
             new_state =
-              case {m1_single?, w_single?, m1_prefered_to_m2?} do
-                {true, true, true} -> state |> Map.put(m1, w) |> Map.put(w, m1)
-                {true, false, true} -> state |> Map.delete(m2) |> Map.put(m1, w) |> Map.put(w, m1)
-                _ -> state
+              case {w_single?, m1_prefered_to_m2?} do
+                {true, true} -> state |> Map.put(m1, w) |> Map.put(w, m1)
+                {false, true} -> state |> Map.delete(m2) |> Map.put(m1, w) |> Map.put(w, m1)
+                {false, false} -> state
               end
 
             {_men = %{men | m1 => preferences}, new_state}
@@ -50,9 +44,10 @@ defmodule StableMarriage do
           end
       end)
 
-    do_match(men, women, state, score, stable?(men, state))
+    do_match(men, women, state, score, stable?(men, women, state))
   end
 
+  # `calculate_score/1` is used to quickly find out which man prefers the woman
   defp calculate_score(women) do
     for {w, prefs} <- women, into: %{} do
       prefs_with_score =
@@ -64,7 +59,10 @@ defmodule StableMarriage do
     end
   end
 
-  defp stable?(men, state) do
-    length(Map.keys(men)) * 2 == length(Map.keys(state))
+  # `stable?/2` stops the algorithm as soon as every man is engaged to a woman
+  # it is done by checking that the number of keys in `state`
+  # is equal to two times the number of keys in `men` and in `women`
+  defp stable?(men, women, state) do
+    length(Map.keys(men)) + length(Map.keys(women)) == length(Map.keys(state))
   end
 end
