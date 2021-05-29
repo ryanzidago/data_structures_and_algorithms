@@ -1,0 +1,16 @@
+
+running 6 tests
+test binary_heap::test::heap_is_generic_over_some_type_t ... ok
+test binary_heap::test::push_test ... ok
+test binary_heap::test::pop_returns_a_variant_of_the_option_enum ... ok
+test binary_heap::test::root_node_is_always_the_biggest_element_in_heap_after_push_test ... ok
+test binary_heap::test::pop_always_pop_the_root_node ... ok
+test binary_heap::test::root_node_is_always_the_biggest_element_in_heap_after_pop_test ... FAILED
+
+failures:
+
+failures:
+    binary_heap::test::root_node_is_always_the_biggest_element_in_heap_after_pop_test
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

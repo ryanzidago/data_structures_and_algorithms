@@ -5,12 +5,12 @@ fn main() {
 mod binary_heap {
     #[derive(Debug)]
     pub struct MaxHeap<T> {
-        pub data: Vec<T>,
+        data: Vec<T>,
     }
 
     impl<T> MaxHeap<T>
     where
-        T: PartialOrd,
+        T: Ord,
     {
         pub fn new() -> MaxHeap<T> {
             MaxHeap { data: vec![] }
@@ -32,7 +32,7 @@ mod binary_heap {
 
         pub fn push(&mut self, value: T) {
             self.data.push(value);
-            let new_node_index: usize = self.data.len() - 1;
+            let new_node_index = self.data.len() - 1;
             self.sift_up(new_node_index);
         }
 
@@ -51,14 +51,21 @@ mod binary_heap {
         // A binary tree of size N has roughly O(log N) rows
         // So deleting a node from a heap is at most O(log N)
         pub fn pop(&mut self) -> Option<T> {
-            match self.data.len() {
-                0 => None,
-                _ => {
-                    let deleted_node = self.data.swap_remove(0);
-                    self.sift_down();
-                    Some(deleted_node)
-                }
+            if self.data.len() == 0 {
+                None
+            } else {
+                let deleted_node = self.data.swap_remove(0);
+                self.sift_down();
+                Some(deleted_node)
             }
+        }
+
+        pub fn peek(&self) -> Option<&T> {
+            self.data.first()
+        }
+
+        pub fn as_vec(&self) -> &Vec<T> {
+            &self.data
         }
 
         fn sift_up(&mut self, mut new_node_index: usize) {
@@ -101,8 +108,8 @@ mod binary_heap {
         }
 
         fn has_greater_child(&self, index: usize) -> bool {
-            let left_child_index: usize = self.left_child_index(index);
-            let right_child_index: usize = self.right_child_index(index);
+            let left_child_index = self.left_child_index(index);
+            let right_child_index = self.right_child_index(index);
 
             self.data.get(left_child_index).is_some()
                 && self.data[left_child_index] > self.data[index]
@@ -111,8 +118,8 @@ mod binary_heap {
         }
 
         fn calculate_larger_child_index(&self, index: usize) -> usize {
-            let left_child_index: usize = self.left_child_index(index);
-            let right_child_index: usize = self.right_child_index(index);
+            let left_child_index = self.left_child_index(index);
+            let right_child_index = self.right_child_index(index);
 
             let left_child = self.data.get(left_child_index);
             let right_child = self.data.get(right_child_index);
@@ -120,9 +127,9 @@ mod binary_heap {
             if ((right_child.is_some() && left_child.is_some()) && right_child > left_child)
                 || left_child.is_none()
             {
-                return right_child_index;
+                right_child_index
             } else {
-                return left_child_index;
+                left_child_index
             }
         }
     }
@@ -206,6 +213,26 @@ mod binary_heap {
 
             assert_eq!(Some((10, String::from("Porto"))), element);
             assert_eq!((5, String::from("Beijing")), heap.data[0]);
+        }
+
+        #[test]
+        fn peek_returns_the_first_element_of_the_data_field_wrapped_in_an_option() {
+            let mut heap: MaxHeap<i32> = MaxHeap::new();
+            heap.push(5);
+            heap.push(10);
+            heap.push(2);
+
+            assert_eq!(Some(&10), heap.peek());
+        }
+
+        #[test]
+        fn as_vec_returns_a_reference_to_the_data_field() {
+            let mut heap: MaxHeap<i32> = MaxHeap::new();
+            heap.push(5);
+            heap.push(10);
+            heap.push(2);
+
+            assert_eq!(&vec![10, 5, 2], heap.as_vec());
         }
     }
 }
