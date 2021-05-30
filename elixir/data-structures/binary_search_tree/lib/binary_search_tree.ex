@@ -46,4 +46,12 @@ defmodule BinarySearchTree do
   def search(_, _) do
     nil
   end
+
+  def leaf?(%TreeNode{left: nil, right: nil}) do
+    true
+  end
+
+  def leaf?(_) do
+    false
+  end
 end

@@ -53,4 +53,14 @@ defmodule BinarySearchTreeTest do
       assert is_nil(BinarySearchTree.search(node, 999))
     end
   end
+
+  describe "leaf?/1" do
+    test "returns `true` if the node has no descendants" do
+      assert BinarySearchTree.leaf?(TreeNode.new())
+    end
+
+    test "returns `false` if the node has at least one descendant", %{node: node} do
+      refute BinarySearchTree.leaf?(node)
+    end
+  end
 end
