@@ -1,4 +1,4 @@
-defmodule StableMarriageTest do
+defmodule StableMarriage2Test do
   use ExUnit.Case
 
   test "match/2" do
@@ -18,7 +18,7 @@ defmodule StableMarriageTest do
       "p" => ~w(b e a c d)
     }
 
-    matches = StableMarriage.match(men, women)
+    matches = StableMarriage2.match(men, women)
 
     assert [
              {"a", "o"},
