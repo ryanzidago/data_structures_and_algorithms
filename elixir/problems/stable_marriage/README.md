@@ -1,21 +1,5 @@
 # StableMarriage
+https://github.com/alextanhongpin/stable-marriage-problem/blob/master/elixir/main.exs
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `stable_marriage` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:stable_marriage, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/stable_marriage](https://hexdocs.pm/stable_marriage).
-
+# StableMarriage2
+https://elixirforum.com/t/how-would-you-implement-the-gale-shapley-algorithm-in-elixir-for-solving-the-stable-marriage-problem/40051/13?u=ryanzidago
