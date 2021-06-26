@@ -2,17 +2,17 @@ defmodule BinarySearchTreeTest do
   use ExUnit.Case
 
   setup %{} do
-    node = %TreeNode{
+    node = %BinarySearchTree{
       val: 10,
-      left: %TreeNode{
+      left: %BinarySearchTree{
         val: 5,
-        left: %TreeNode{
+        left: %BinarySearchTree{
           val: 1
         }
       },
-      right: %TreeNode{
+      right: %BinarySearchTree{
         val: 15,
-        right: %TreeNode{
+        right: %BinarySearchTree{
           val: 20
         }
       }
@@ -21,9 +21,15 @@ defmodule BinarySearchTreeTest do
     {:ok, node: node}
   end
 
+  describe "new/1" do
+    test "creates a new BST with the root node taking the value of the first argument" do
+      assert %BinarySearchTree{val: 10} == BinarySearchTree.new(10)
+    end
+  end
+
   describe "insert/2" do
     test "does not allow duplicate values" do
-      node = TreeNode.new(3)
+      node = BinarySearchTree.new(3)
       assert node == BinarySearchTree.insert(node, 3)
     end
 
@@ -31,7 +37,7 @@ defmodule BinarySearchTreeTest do
       node: expected
     } do
       node =
-        TreeNode.new(10)
+        BinarySearchTree.new(10)
         |> BinarySearchTree.insert(15)
         |> BinarySearchTree.insert(5)
         |> BinarySearchTree.insert(20)
@@ -45,7 +51,7 @@ defmodule BinarySearchTreeTest do
     test "if the BinarySearchTree contains the searched element, returns the node containing the element",
          %{node: node} do
       node_with_searched_value = BinarySearchTree.search(node, 1)
-      expected = TreeNode.new(1)
+      expected = BinarySearchTree.new(1)
       assert node_with_searched_value == expected
     end
 
@@ -56,11 +62,65 @@ defmodule BinarySearchTreeTest do
 
   describe "leaf?/1" do
     test "returns `true` if the node has no descendants" do
-      assert BinarySearchTree.leaf?(TreeNode.new())
+      assert BinarySearchTree.leaf?(BinarySearchTree.new(0))
     end
 
     test "returns `false` if the node has at least one descendant", %{node: node} do
       refute BinarySearchTree.leaf?(node)
+    end
+  end
+
+  describe "pre_order_traversal/1" do
+    test "traverse pre order the BST and returns a list of the visited node", %{node: node} do
+      assert [10, 5, 1, 15, 20] == BinarySearchTree.pre_order_traversal(node)
+    end
+  end
+
+  describe "pre_order_traversal/2" do
+    test "traverse pre order the BST and returns a list of the visited node, while applying the anonymous function to each visited node",
+         %{node: node} do
+      assert Enum.map([10, 5, 1, 15, 20], &(&1 * &1)) ==
+               BinarySearchTree.pre_order_traversal(node, &(&1 * &1))
+    end
+  end
+
+  describe "in_order_traversal/1" do
+    test "traverse in order the BST and returns a list of the visited node", %{node: node} do
+      assert [1, 5, 10, 15, 20] == BinarySearchTree.in_order_traversal(node)
+    end
+  end
+
+  describe "in_order_traversal/2" do
+    test "traverse in order the BST and returns a list of the visited node, while applying the anonymous function to each visited node",
+         %{node: node} do
+      assert Enum.map([1, 5, 10, 15, 20], &(&1 * &1)) ==
+               BinarySearchTree.in_order_traversal(node, &(&1 * &1))
+    end
+  end
+
+  describe "post_order_traversal/1" do
+    test "traverse post order the BST and returns a list of the visited node", %{node: node} do
+      assert [1, 5, 20, 15, 10] == BinarySearchTree.post_order_traversal(node)
+    end
+  end
+
+  describe "post_order_traversal/2" do
+    test "traverse post order the BST and returns a list of the visited node, while applying the anonymous function to each visited node",
+         %{node: node} do
+      assert Enum.map([1, 5, 20, 15, 10], &(&1 * &1)) ==
+               BinarySearchTree.post_order_traversal(node, &(&1 * &1))
+    end
+  end
+
+  describe "min/1" do
+    test "returns the minimum value of the BST", %{node: node} do
+      assert 1 == BinarySearchTree.min(node)
+    end
+  end
+
+  describe "max/2" do
+    test "returns the maximum value of the BST", %{node: node} do
+      assert 20 == BinarySearchTree.max(node)
     end
   end
 end
