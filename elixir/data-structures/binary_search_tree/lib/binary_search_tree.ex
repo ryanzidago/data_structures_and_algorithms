@@ -11,7 +11,7 @@ defmodule BinarySearchTree do
   end
 
   def insert(%__MODULE__{val: val, left: nil} = current_node, element) when element < val do
-    %__MODULE__{current_node | left: __MODULE__.new(element)}
+    %__MODULE__{current_node | left: new(element)}
   end
 
   def insert(%__MODULE__{val: val, left: left} = current_node, element) when element < val do
@@ -19,7 +19,7 @@ defmodule BinarySearchTree do
   end
 
   def insert(%__MODULE__{val: val, right: nil} = current_node, element) when element > val do
-    %__MODULE__{current_node | right: __MODULE__.new(element)}
+    %__MODULE__{current_node | right: new(element)}
   end
 
   def insert(%__MODULE__{val: val, right: right} = current_node, element) when element > val do
