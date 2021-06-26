@@ -46,7 +46,7 @@ defmodule BinarySearchTree do
     nil
   end
 
-  def leaf?(%__MODULE__{left: nil, right: nil}), do: true
+  def leaf?(node) when is_leaf(node), do: true
   def leaf?(_), do: false
 
   def pre_order_traversal(node, func \\ fn node -> node end)
