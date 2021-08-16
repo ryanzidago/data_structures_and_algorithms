@@ -6,5 +6,5 @@
 |InsertionSort       |[] |[]    |[x]   |[x] |[x] |
 |Kadane              |[] |[]    |[]    |[]  |[x] |
 |MergeSort           |[] |[]    |[x]   |[x] |[]  |
-|QuickSort           |[x]|[]    |[x]   |[]  |[x] |
+|QuickSort           |:heavy_checked_mark:|[]    |[x]   |[]  |[x] |
 |SelectionSort       |[] |[]    |[x]   |[]  |[x] |
