@@ -1,3 +1,7 @@
+# Algorithms & Data Structures
+
+As a shortcut, to avoid browsing all folders, you can simply view any of the table entries and click on the heavy green check mark so view the implementation in a specific language.
+
 # Algorithms
 
 |algorithm / language|C  |Elixir|Python|Ruby|Rust|
