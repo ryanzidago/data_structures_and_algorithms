@@ -39,3 +39,31 @@ fn dynamic_fib(num: u128) -> u128 {
     };
     *memo.get(&num).unwrap()
 }
+
+
+// Fibonacci with iterators
+// source: https://doc.rust-lang.org/rust-by-example/trait/iter.html
+struct Fibonacci {
+    curr: usize,
+    next: usize,
+}
+
+impl Iterator for Fibonacci {
+    type Item = usize;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let new_next = self.curr + self.next;
+        self.curr = self.next;
+        self.next = new_next;
+
+        Some(self.curr)
+    }
+}
+
+fn fibonacci() -> Fibonacci {
+    Fibonacci { curr: 0, next: 1}
+}
+
+// for fib in fibonacci().take(50) {
+//    println!("{}", fib);
+// }
