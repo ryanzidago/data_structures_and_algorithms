@@ -76,7 +76,9 @@ where
     {
         let bucket = self.bucket(key);
         let bucket = &mut self.buckets[bucket];
-        let i = bucket.iter().position(|&(ref ekey, _)| ekey.borrow() == key)?;
+        let i = bucket
+            .iter()
+            .position(|&(ref ekey, _)| ekey.borrow() == key)?;
         self.items -= 1;
         Some(bucket.swap_remove(i).1)
     }
