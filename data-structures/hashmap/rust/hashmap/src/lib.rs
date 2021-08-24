@@ -1,3 +1,5 @@
+#![warn(clippy::all, clippy::pedantic)]
+
 use std::collections::hash_map::DefaultHasher;
 use std::fmt::Debug;
 use std::hash::{Hash, Hasher};
@@ -10,6 +12,12 @@ const INIT_N_BUCKETS: usize = 1;
 pub struct HashMap<K, V> {
     buckets: Vec<Vec<(K, V)>>,
     len: usize,
+}
+
+impl<K, V> Default for HashMap<K, V> {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl<K, V> HashMap<K, V> {
@@ -41,12 +49,12 @@ where
         None
     }
 
-    pub fn get(&self, key: K) -> Option<&V> {
+    pub fn get(&self, key: &K) -> Option<&V> {
         let bucket_index = calculate_hash(&key, self.buckets.len());
         let bucket = &self.buckets[bucket_index];
 
         for (ref existing_key, ref existing_value) in bucket.iter() {
-            if &key == existing_key {
+            if key == existing_key {
                 return Some(existing_value);
             }
         }
@@ -54,12 +62,12 @@ where
         None
     }
 
-    pub fn get_key_value(&self, key: K) -> Option<(&K, &V)> {
+    pub fn get_key_value(&self, key: &K) -> Option<(&K, &V)> {
         let bucket_index = calculate_hash(&key, self.buckets.len());
         let bucket = &self.buckets[bucket_index];
 
         for (ref existing_key, ref existing_value) in bucket.iter() {
-            if &key == existing_key {
+            if key == existing_key {
                 return Some((existing_key, existing_value));
             }
         }
@@ -69,7 +77,7 @@ where
 
     pub fn get_mut(&mut self, key: &K) -> Option<&mut V> {
         let bucket_index = calculate_hash(&key, self.buckets.len());
-        for (ref existing_key, ref mut existing_value) in self.buckets[bucket_index].iter_mut() {
+        for (existing_key, existing_value) in &mut self.buckets[bucket_index].iter_mut() {
             if key == existing_key {
                 return Some(existing_value);
             }
@@ -78,8 +86,8 @@ where
         None
     }
 
-    pub fn contains_key(&self, key: K) -> bool {
-        self.get(key).is_some()
+    pub fn contains_key(&self, key: &K) -> bool {
+        self.get(&key).is_some()
     }
 
     pub fn len(&self) -> usize {
@@ -118,7 +126,7 @@ where
         }
     }
 
-    /// load_factor is the number of items N divided by the number of buckets M
+    /// `load_factor` is the number of items N divided by the number of buckets M
     /// it represents how full the hashmap is
     fn load_factor(&self) -> usize {
         self.len / self.buckets.len()
@@ -226,9 +234,9 @@ mod test {
         hashmap.insert("Hello", "world");
         hashmap.insert("Bonjour", "monde");
 
-        assert_eq!(hashmap.get("Hello"), Some(&"world"));
-        assert_eq!(hashmap.get("Bonjour"), Some(&"monde"));
-        assert_eq!(hashmap.get("Bom dia"), None);
+        assert_eq!(hashmap.get(&"Hello"), Some(&"world"));
+        assert_eq!(hashmap.get(&"Bonjour"), Some(&"monde"));
+        assert_eq!(hashmap.get(&"Bom dia"), None);
     }
 
     #[test]
@@ -237,12 +245,12 @@ mod test {
         hashmap.insert("Hello", "world");
         hashmap.insert("Bonjour", "monde");
 
-        assert_eq!(hashmap.get_key_value("Hello"), Some((&"Hello", &"world")));
+        assert_eq!(hashmap.get_key_value(&"Hello"), Some((&"Hello", &"world")));
         assert_eq!(
-            hashmap.get_key_value("Bonjour"),
+            hashmap.get_key_value(&"Bonjour"),
             Some((&"Bonjour", &"monde"))
         );
-        assert_eq!(hashmap.get_key_value("Bom dia"), None);
+        assert_eq!(hashmap.get_key_value(&"Bom dia"), None);
     }
 
     #[test]
@@ -262,9 +270,9 @@ mod test {
         hashmap.insert("Hello", "world");
         hashmap.insert("Bonjour", "monde");
 
-        assert!(hashmap.contains_key("Hello"));
-        assert!(hashmap.contains_key("Bonjour"));
-        assert!(!hashmap.contains_key("Bom dia"));
+        assert!(hashmap.contains_key(&"Hello"));
+        assert!(hashmap.contains_key(&"Bonjour"));
+        assert!(!hashmap.contains_key(&"Bom dia"));
     }
 
     #[test]
