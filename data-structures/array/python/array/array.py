@@ -2,7 +2,7 @@
 # do not pass leetcode's test cases: https://leetcode.com/problems/rotate-array/
 
 def rotate_left(array, k):
-    for _ in range(k):
+    for _ in range(k % len(array)):
         _rotate_left(array)
 
 def _rotate_left(array):
@@ -15,7 +15,7 @@ def _rotate_left(array):
     array[-1] = temp
 
 def rotate_right(array, k):
-    for _ in range(k):
+    for _ in range(k % len(array)):
         _rotate_right(array)
 
 def _rotate_right(array):
