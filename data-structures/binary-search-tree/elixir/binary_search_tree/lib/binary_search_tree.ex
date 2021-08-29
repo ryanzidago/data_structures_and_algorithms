@@ -84,4 +84,7 @@ defmodule BinarySearchTree do
   def invert(%__MODULE__{left: left, right: right} = node) do
     %{node | left: invert(right), right: invert(left)}
   end
+
+  def same_tree?(%__MODULE__{} = tree, %__MODULE__{} = tree), do: true
+  def same_tree?(_, _), do: false
 end
