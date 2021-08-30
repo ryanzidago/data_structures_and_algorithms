@@ -1,5 +1,5 @@
 def rotate_right(array, k)
-    k.times do
+    (k % array.length).times do
         array.unshift(array.pop())
     end
 end

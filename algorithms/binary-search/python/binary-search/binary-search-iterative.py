@@ -4,7 +4,7 @@ def binary_search(nums, target):
     left, right = 0, len(nums) - 1 
 
     while left <= right:
-        pivot = left + (right - left) // 2
+        pivot = left + ((right - left) // 2)
 
         if nums[pivot] == target:
             return pivot 
