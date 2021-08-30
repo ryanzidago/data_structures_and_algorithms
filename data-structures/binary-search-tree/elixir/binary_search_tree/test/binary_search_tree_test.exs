@@ -123,4 +123,17 @@ defmodule BinarySearchTreeTest do
       assert 20 == BinarySearchTree.max(node)
     end
   end
+
+  describe "same_tree?/2" do
+    test "returns `true` if both Binary Search Trees are the same", %{node: node} do
+      node_1 = node
+      node_2 = node
+
+      assert BinarySearchTree.same_tree?(node_1, node_2)
+    end
+
+    test "otherwise, returns `false`", %{node: node} do
+      refute BinarySearchTree.same_tree?(node, %BinarySearchTree{})
+    end
+  end
 end

@@ -86,5 +86,5 @@ defmodule BinarySearchTree do
   end
 
   def same_tree?(%__MODULE__{} = tree, %__MODULE__{} = tree), do: true
-  def same_tree?(_, _), do: false
+  def same_tree?(%__MODULE__{}, %__MODULE__{}), do: false
 end
