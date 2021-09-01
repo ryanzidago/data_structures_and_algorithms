@@ -1,6 +1,12 @@
 defmodule BinarySearchTreeTest do
   use ExUnit.Case
 
+  #
+  #        10
+  #      5    15
+  #     1       20
+  #
+
   setup %{} do
     node = %BinarySearchTree{
       val: 10,
@@ -134,6 +140,20 @@ defmodule BinarySearchTreeTest do
 
     test "otherwise, returns `false`", %{node: node} do
       refute BinarySearchTree.same_tree?(node, %BinarySearchTree{})
+    end
+  end
+
+  describe "lowest_common_ancestor/3" do
+    test "returns the lowest common ancestor for two nodes in a given tree", %{node: node} do
+      node_1 = node.left
+      node_2 = node.right
+
+      assert node == BinarySearchTree.lowest_common_ancestor(node, node_1, node_2)
+
+      node_1 = BinarySearchTree.search(node, 5)
+      node_2 = BinarySearchTree.search(node, 15)
+
+      assert node == BinarySearchTree.lowest_common_ancestor(node, node_1, node_2)
     end
   end
 end

@@ -26,25 +26,17 @@ defmodule BinarySearchTree do
     %__MODULE__{current_node | right: insert(right, element)}
   end
 
-  def search(%__MODULE__{val: val} = current_node, val) do
-    current_node
-  end
+  def search(%__MODULE__{val: val} = current_node, val), do: current_node
 
-  def search(%__MODULE__{val: val, left: left}, element)
-      when element < val
-      when not is_nil(left) do
+  def search(%__MODULE__{val: val, left: left}, element) when element < val do
     search(left, element)
   end
 
-  def search(%__MODULE__{val: val, right: right}, element)
-      when element > val
-      when not is_nil(right) do
+  def search(%__MODULE__{val: val, right: right}, element) when element > val do
     search(right, element)
   end
 
-  def search(_, _) do
-    nil
-  end
+  def search(_, _), do: nil
 
   def leaf?(node) when is_leaf(node), do: true
   def leaf?(_), do: false
@@ -87,4 +79,18 @@ defmodule BinarySearchTree do
 
   def same_tree?(%__MODULE__{} = tree, %__MODULE__{} = tree), do: true
   def same_tree?(%__MODULE__{}, %__MODULE__{}), do: false
+
+  def lowest_common_ancestor(%__MODULE__{} = tree, %__MODULE__{} = node_1, %__MODULE__{} = node_2)
+      when node_1.val < tree.val and node_2.val < tree.val do
+    lowest_common_ancestor(node.left, node_1, node_2)
+  end
+
+  def lowest_common_ancestor(%__MODULE__{} = tree, %__MODULE__{} = node_1, %__MODULE__{} = node_2)
+      when node_1.val > tree.val and node_2.val > tree.val do
+    lowest_common_ancestor(node.right, node_1, node_2)
+  end
+
+  def lowest_common_ancestor(%__MODULE__{} = tree, %__MODULE__{}, %__MODULE__{}) do
+    tree
+  end
 end
