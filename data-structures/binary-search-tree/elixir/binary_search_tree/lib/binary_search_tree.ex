@@ -82,12 +82,12 @@ defmodule BinarySearchTree do
 
   def lowest_common_ancestor(%__MODULE__{} = tree, %__MODULE__{} = node_1, %__MODULE__{} = node_2)
       when node_1.val < tree.val and node_2.val < tree.val do
-    lowest_common_ancestor(node.left, node_1, node_2)
+    lowest_common_ancestor(tree.left, node_1, node_2)
   end
 
   def lowest_common_ancestor(%__MODULE__{} = tree, %__MODULE__{} = node_1, %__MODULE__{} = node_2)
       when node_1.val > tree.val and node_2.val > tree.val do
-    lowest_common_ancestor(node.right, node_1, node_2)
+    lowest_common_ancestor(tree.right, node_1, node_2)
   end
 
   def lowest_common_ancestor(%__MODULE__{} = tree, %__MODULE__{}, %__MODULE__{}) do
