@@ -1,3 +1,4 @@
 *.ropeproject*
 *target*
 *elixir_ls*
+_build
