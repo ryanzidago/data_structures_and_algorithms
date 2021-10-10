@@ -34,7 +34,7 @@ defmodule README.Config do
   end
 
   def done_marker do
-    inspect(:heavy_check_mark)
+    ":heavy_check_mark:"
   end
 end
 
