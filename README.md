@@ -27,7 +27,7 @@ Graph| | | |[:heavy_check_mark:](data_structures/graph/ruby/graph)|[:heavy_check
 Hashmap| | | | |[:heavy_check_mark:](data_structures/hashmap/rust/hashmap)
 List| | | |[:heavy_check_mark:](data_structures/list/ruby/list)|[:heavy_check_mark:](data_structures/list/rust/list)
 Queue| | |[:heavy_check_mark:](data_structures/queue/python/queue)|[:heavy_check_mark:](data_structures/queue/ruby/queue)|[:heavy_check_mark:](data_structures/queue/rust/queue)
-Stack| | |[:heavy_check_mark:](data_structures/stack/python/stack)|[:heavy_check_mark:](data_structures/stack/ruby/stack)|[:heavy_check_mark:](data_structures/stack/rust/stack)
+Stack| |[:heavy_check_mark:](data_structures/stack/elixir/stack)|[:heavy_check_mark:](data_structures/stack/python/stack)|[:heavy_check_mark:](data_structures/stack/ruby/stack)|[:heavy_check_mark:](data_structures/stack/rust/stack)
 Trie| |[:heavy_check_mark:](data_structures/trie/elixir/trie)|[:heavy_check_mark:](data_structures/trie/python/trie)| | 
 
 
