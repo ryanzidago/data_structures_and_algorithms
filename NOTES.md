@@ -30,3 +30,10 @@ https://www.youtube.com/watch?v=RE5PmdGNgj0&t=11s
 
 ## Genetic Algorithms
 + https://personal.denison.edu/~lalla/MCURCSM2011/6.pdf
+
+
+# TODO
+http://rosettacode.org/wiki/Levenshtein_distance
+http://rosettacode.org/wiki/Dining_philosophers
+http://rosettacode.org/wiki/100_prisoners
+http://rosettacode.org/wiki/Sleeping_Beauty_problem
