@@ -3,3 +3,4 @@
 *elixir_ls*
 _build
 erl_crash.dump
+.tool-versions
