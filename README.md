@@ -10,7 +10,7 @@ BinarySearch| | |[:heavy_check_mark:](algorithms/binary_search/python/binary_sea
 BoyerMooreMajorityVote| |[:heavy_check_mark:](algorithms/boyer_moore_majority_vote/elixir/boyer_moore_majority_vote)|[:heavy_check_mark:](algorithms/boyer_moore_majority_vote/python/boyer_moore_majority_vote)|[:heavy_check_mark:](algorithms/boyer_moore_majority_vote/ruby/boyer_moore_majority_vote)| 
 BubbleSort| | | | |[:heavy_check_mark:](algorithms/bubble_sort/rust/bubble_sort)
 InsertionSort| | |[:heavy_check_mark:](algorithms/insertion_sort/python/insertion_sort)|[:heavy_check_mark:](algorithms/insertion_sort/ruby/insertion_sort)|[:heavy_check_mark:](algorithms/insertion_sort/rust/insertion_sort)
-Kadane| | | | |[:heavy_check_mark:](algorithms/kadane/rust/kadane)
+Kadane| |[:heavy_check_mark:](algorithms/kadane/elixir/kadane)| |[:heavy_check_mark:](algorithms/kadane/ruby/kadane)|[:heavy_check_mark:](algorithms/kadane/rust/kadane)
 MergeSort| | |[:heavy_check_mark:](algorithms/merge_sort/python/merge_sort)|[:heavy_check_mark:](algorithms/merge_sort/ruby/merge_sort)| 
 Quicksort|[:heavy_check_mark:](algorithms/quicksort/c/quicksort)| |[:heavy_check_mark:](algorithms/quicksort/python/quicksort)| |[:heavy_check_mark:](algorithms/quicksort/rust/quicksort)
 SelectionSort| | |[:heavy_check_mark:](algorithms/selection_sort/python/selection_sort)| |[:heavy_check_mark:](algorithms/selection_sort/rust/selection_sort)
