@@ -31,6 +31,10 @@ Boyer moore
 ## Genetic Algorithms
 + https://personal.denison.edu/~lalla/MCURCSM2011/6.pdf
 
+## Trie
++ https://web.stanford.edu/class/archive/cs/cs166/cs166.1146/lectures/10/Small10.pdf
++ https://web.stanford.edu/~mjkay/suffix_tree.pdf
+
 
 # TODO
 + http://rosettacode.org/wiki/Levenshtein_distance
