@@ -23,10 +23,11 @@ Array| | |[:heavy_check_mark:](data_structures/array/python/array)|[:heavy_check
 BinaryHeap| | | | |[:heavy_check_mark:](data_structures/binary_heap/rust/binary_heap)
 BinarySearchTree| |[:heavy_check_mark:](data_structures/binary_search_tree/elixir/binary_search_tree)|[:heavy_check_mark:](data_structures/binary_search_tree/python/binary_search_tree)| |[:heavy_check_mark:](data_structures/binary_search_tree/rust/binary_search_tree)
 BinaryTree| |[:heavy_check_mark:](data_structures/binary_tree/elixir/binary_tree)| | | 
+DoublyLinkedList| | | | |[:heavy_check_mark:](data_structures/doubly_linked_list/rust/doubly_linked_list)
 Graph| | | |[:heavy_check_mark:](data_structures/graph/ruby/graph)|[:heavy_check_mark:](data_structures/graph/rust/graph)
 Hashmap| | | | |[:heavy_check_mark:](data_structures/hashmap/rust/hashmap)
-List| | | |[:heavy_check_mark:](data_structures/list/ruby/list)|[:heavy_check_mark:](data_structures/list/rust/list)
 Queue| | |[:heavy_check_mark:](data_structures/queue/python/queue)|[:heavy_check_mark:](data_structures/queue/ruby/queue)|[:heavy_check_mark:](data_structures/queue/rust/queue)
+SinglyLinkedList| | | |[:heavy_check_mark:](data_structures/singly_linked_list/ruby/singly_linked_list)|[:heavy_check_mark:](data_structures/singly_linked_list/rust/singly_linked_list)
 Stack| |[:heavy_check_mark:](data_structures/stack/elixir/stack)|[:heavy_check_mark:](data_structures/stack/python/stack)|[:heavy_check_mark:](data_structures/stack/ruby/stack)|[:heavy_check_mark:](data_structures/stack/rust/stack)
 Trie| |[:heavy_check_mark:](data_structures/trie/elixir/trie)|[:heavy_check_mark:](data_structures/trie/python/trie)| | 
 
