@@ -107,6 +107,11 @@ defmodule TrieTest do
       outcome = Trie.new() |> Trie.put("cat") |> Trie.put("dog")
       assert outcome == expected
     end
+
+    test "puts a list of words into a trie" do
+      outcome = Trie.put(Trie.new(), ~w(cat dog))
+      assert outcome == Trie.new() |> Trie.put("cat") |> Trie.put("dog")
+    end
   end
 
   describe "has_word?/2" do

@@ -21,6 +21,12 @@ defmodule Trie do
     do_put(trie, graphemes)
   end
 
+  def put(trie, words) when is_list(words) do
+    Enum.reduce(words, trie, fn word, trie ->
+      Trie.put(trie, word)
+    end)
+  end
+
   defp do_put(%Trie{children: children} = trie, []) do
     %Trie{trie | children: Map.put(children, "__end__", nil)}
   end
