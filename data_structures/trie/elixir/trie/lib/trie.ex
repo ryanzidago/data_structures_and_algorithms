@@ -26,13 +26,12 @@ defmodule Trie do
   end
 
   defp do_put(trie, [char | _chars] = graphemes) do
-    IO.inspect(trie)
     next_trie = Map.get(trie.children, char, Trie.new())
-    %Trie{trie | children: merge_children(next_trie, trie.children, graphemes)}
+    %Trie{trie | children: merge_children(trie, next_trie, graphemes)}
   end
 
-  defp merge_children(trie, children, [char | chars] = _graphemes) do
-    Map.merge(%{char => do_put(trie, chars)}, children)
+  defp merge_children(trie, next_trie, [char | chars] = _graphemes) do
+    Map.merge(trie.children, %{char => do_put(next_trie, chars)})
   end
 
   def has_word?(trie, word) do

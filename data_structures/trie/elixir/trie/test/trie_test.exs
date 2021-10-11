@@ -93,22 +93,18 @@ defmodule TrieTest do
       assert outcome == expected
     end
 
-    @tag :only
     test "puts a word that is a prefix to another word into a trie", %{
       trie: trie,
       trie_for_prefix: expected
     } do
       outcome = Trie.put(trie, "ca")
-      require IEx
-      IEx.pry()
       assert outcome == expected
     end
 
     test "puts a word that is not a prefix to another word within a trie", %{
-      trie: trie,
       trie_with_two_words: expected
     } do
-      assert outcome = Trie.put(trie, "dog")
+      outcome = Trie.new() |> Trie.put("cat") |> Trie.put("dog")
       assert outcome == expected
     end
   end
