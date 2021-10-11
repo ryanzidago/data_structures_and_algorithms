@@ -140,4 +140,36 @@ defmodule TrieTest do
       assert false == Trie.has_prefix?(trie, "ball")
     end
   end
+
+  describe "trie" do
+    @tag :exclude_this_test
+    test "works for a large file" do
+      les_miserables_as_a_trie =
+        "135-0.txt"
+        |> File.stream!()
+        |> Stream.map(fn line ->
+          line
+          |> String.trim()
+          |> String.split(" ", trim: true)
+          |> Enum.map(&process_word/1)
+        end)
+        |> Enum.reduce(Trie.new(), fn words, trie ->
+          Trie.put(trie, words)
+        end)
+
+      assert Trie.has_word?(les_miserables_as_a_trie, "bishop")
+      assert Trie.has_word?(les_miserables_as_a_trie, "monsieur")
+      assert Trie.has_word?(les_miserables_as_a_trie, "revolution")
+
+      refute Trie.has_word?(les_miserables_as_a_trie, "aufladekabel")
+      refute Trie.has_word?(les_miserables_as_a_trie, "borboleta")
+      refute Trie.has_word?(les_miserables_as_a_trie, "ordinateur")
+    end
+  end
+
+  defp process_word(word) do
+    word
+    |> String.downcase()
+    |> String.replace(~r/[^a-zà-ÿ]/, "")
+  end
 end

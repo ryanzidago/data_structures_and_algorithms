@@ -21,6 +21,11 @@ defmodule Trie do
     do_put(trie, graphemes)
   end
 
+  def put(trie, integer) when is_integer(integer) do
+    digits = Integer.digits(integer)
+    do_put(trie, digits)
+  end
+
   def put(trie, words) when is_list(words) do
     Enum.reduce(words, trie, fn word, trie ->
       Trie.put(trie, word)
