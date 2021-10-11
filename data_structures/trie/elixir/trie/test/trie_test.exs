@@ -164,6 +164,9 @@ defmodule TrieTest do
       refute Trie.has_word?(les_miserables_as_a_trie, "aufladekabel")
       refute Trie.has_word?(les_miserables_as_a_trie, "borboleta")
       refute Trie.has_word?(les_miserables_as_a_trie, "ordinateur")
+
+      assert trie_at_boy = Trie.get(les_miserables_as_a_trie, "boy")
+      assert Trie.has_word?(trie_at_boy, _suffix = "hood")
     end
   end
 
