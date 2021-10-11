@@ -16,21 +16,23 @@ defmodule Trie do
     end
   end
 
-  def put(trie, word) do
+  def put(trie, word) when is_bitstring(word) do
     graphemes = String.graphemes(word)
     do_put(trie, graphemes)
   end
 
   defp do_put(%Trie{children: children} = trie, []) do
-    %Trie{trie | children: Map.put_new(children, "__end__", nil)}
+    %Trie{trie | children: Map.put(children, "__end__", nil)}
   end
 
-  defp do_put(trie, [char | chars]) do
-    if Map.has_key?(trie.children, char) do
-      %Trie{children: %{char => do_put(trie.children[char], chars)}}
-    else
-      %Trie{children: %{char => do_put(Trie.new(), chars)}}
-    end
+  defp do_put(trie, [char | _chars] = graphemes) do
+    IO.inspect(trie)
+    next_trie = Map.get(trie.children, char, Trie.new())
+    %Trie{trie | children: merge_children(next_trie, trie.children, graphemes)}
+  end
+
+  defp merge_children(trie, children, [char | chars] = _graphemes) do
+    Map.merge(%{char => do_put(trie, chars)}, children)
   end
 
   def has_word?(trie, word) do

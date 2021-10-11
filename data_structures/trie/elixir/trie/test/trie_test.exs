@@ -39,9 +39,29 @@ defmodule TrieTest do
       }
     }
 
+    another_trie = %Trie{
+      children: %{
+        "d" => %Trie{
+          children: %{
+            "o" => %Trie{
+              children: %{
+                "g" => %Trie{
+                  children: %{
+                    "__end__" => nil
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    trie_with_two_words = %Trie{trie | children: Map.merge(trie.children, another_trie.children)}
+
     {
       :ok,
-      trie: trie, trie_for_prefix: trie_for_prefix
+      trie: trie, trie_for_prefix: trie_for_prefix, trie_with_two_words: trie_with_two_words
     }
   end
 
@@ -73,11 +93,22 @@ defmodule TrieTest do
       assert outcome == expected
     end
 
+    @tag :only
     test "puts a word that is a prefix to another word into a trie", %{
       trie: trie,
       trie_for_prefix: expected
     } do
       outcome = Trie.put(trie, "ca")
+      require IEx
+      IEx.pry()
+      assert outcome == expected
+    end
+
+    test "puts a word that is not a prefix to another word within a trie", %{
+      trie: trie,
+      trie_with_two_words: expected
+    } do
+      assert outcome = Trie.put(trie, "dog")
       assert outcome == expected
     end
   end
