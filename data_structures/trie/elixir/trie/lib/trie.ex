@@ -3,7 +3,7 @@ defmodule Trie do
 
   def new, do: %Trie{}
 
-  def get(trie, word) do
+  def get(%Trie{} = trie, word) do
     graphemes = String.graphemes(word)
     do_get(trie, graphemes)
   end
@@ -16,17 +16,17 @@ defmodule Trie do
     end
   end
 
-  def put(trie, word) when is_bitstring(word) do
+  def put(%Trie{} = trie, word) when is_bitstring(word) do
     graphemes = String.graphemes(word)
     do_put(trie, graphemes)
   end
 
-  def put(trie, integer) when is_integer(integer) do
+  def put(%Trie{} = trie, integer) when is_integer(integer) do
     digits = Integer.digits(integer)
     do_put(trie, digits)
   end
 
-  def put(trie, words) when is_list(words) do
+  def put(%Trie{} = trie, words) when is_list(words) do
     Enum.reduce(words, trie, fn word, trie ->
       Trie.put(trie, word)
     end)
@@ -45,7 +45,7 @@ defmodule Trie do
     Map.merge(trie.children, %{char => do_put(next_trie, chars)})
   end
 
-  def has_word?(trie, word) do
+  def has_word?(%Trie{} = trie, word) do
     graphemes = String.graphemes(word)
     do_has_word?(trie, graphemes)
   end
@@ -56,7 +56,7 @@ defmodule Trie do
     Map.has_key?(trie.children, char) and do_has_word?(trie.children[char], chars)
   end
 
-  def has_prefix?(trie, word) do
+  def has_prefix?(%Trie{} = trie, word) do
     graphemes = String.graphemes(word)
     do_has_prefix?(trie, graphemes)
   end
