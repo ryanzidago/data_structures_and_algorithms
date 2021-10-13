@@ -21,7 +21,7 @@ defmodule Zipper.ListZipper do
   def replace({prev, []}, val), do: {prev, [val]}
   def replace({prev, [_ | next]}, val), do: {prev, [val | next]}
 
-  def insert({prev, next}, val), do: {prev, [val | next]}
+  def put({prev, next}, val), do: {prev, [val | next]}
 
   def delete({prev, []}), do: {prev, []}
   def delete({prev, [_ | next]}), do: {prev, next}

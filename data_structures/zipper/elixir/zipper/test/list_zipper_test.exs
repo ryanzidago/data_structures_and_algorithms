@@ -86,12 +86,12 @@ defmodule Zipper.ListZipperTest do
     end
   end
 
-  describe "insert/2" do
-    test "inserts a value into the list zipper" do
+  describe "put/2" do
+    test "puts a value into the list zipper" do
       lzip = {[], []}
-      assert lzip = {[], [1]} = ListZipper.insert(lzip, 1)
-      assert lzip = {[], [2, 1]} = ListZipper.insert(lzip, 2)
-      assert _lzip = {[], [3, 2, 1]} = ListZipper.insert(lzip, 3)
+      assert lzip = {[], [1]} = ListZipper.put(lzip, 1)
+      assert lzip = {[], [2, 1]} = ListZipper.put(lzip, 2)
+      assert _lzip = {[], [3, 2, 1]} = ListZipper.put(lzip, 3)
     end
   end
 
