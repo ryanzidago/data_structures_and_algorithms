@@ -1,9 +1,11 @@
 defmodule Zipper.ListZipper do
+  defguard is_range(range) when is_struct(range, Range)
+
   def new, do: {[], []}
 
   def from_list(list) when is_list(list), do: {[], list}
 
-  def from_range(%Range{} = range), do: from_list(Enum.to_list(range))
+  def from_range(range) when is_range(range), do: from_list(Enum.to_list(range))
 
   def to_list({prev, next}), do: Enum.reverse(prev) ++ next
 
