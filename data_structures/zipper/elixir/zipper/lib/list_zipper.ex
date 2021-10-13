@@ -15,6 +15,9 @@ defmodule Zipper.ListZipper do
   def current({_, []}), do: nil
   def current({_, [current | _]}), do: current
 
+  def pop({_, []} = lzip), do: {nil, lzip}
+  def pop({prev, [current | tail]}), do: {current, {prev, tail}}
+
   def next({prev, []}), do: {prev, []}
   def next({prev, [head | tail]}), do: {[head | prev], tail}
 

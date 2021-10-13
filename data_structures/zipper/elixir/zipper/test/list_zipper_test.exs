@@ -60,6 +60,18 @@ defmodule Zipper.ListZipperTest do
     end
   end
 
+  describe "pop/1" do
+    test "returns a two-element tuple where the first element is the current element in the list zipper and the second element is the list zipper without the current element" do
+      lzip = {[], [1, 2, 3]}
+      assert {1, {[], [2, 3]}} = ListZipper.pop(lzip)
+    end
+
+    test "returns a two-element tuple with `nil` as the first element and the same list zipper as a second element if there is no current element" do
+      lzip = {[3, 2, 1], []}
+      assert {nil, lzip} == ListZipper.pop(lzip)
+    end
+  end
+
   describe "next/1" do
     test "points to the element after the current element in the list zipper" do
       lzip = {[3, 2, 1], [4, 5, 6, 7, 8, 9, 10]}
