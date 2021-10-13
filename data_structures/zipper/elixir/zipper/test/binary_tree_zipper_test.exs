@@ -58,18 +58,18 @@ defmodule Zipper.BinaryTreeZipperTest do
     end
   end
 
-  describe "current/1" do
-    test "returns the value of the current node pointed by the zipper", %{
+  describe "get/1" do
+    test "gets the value of the current node pointed by the zipper", %{
       binary_tree_zipper: binary_tree_zipper
     } do
-      assert 1 = BinaryTreeZipper.current(binary_tree_zipper)
+      assert 1 = BinaryTreeZipper.get(binary_tree_zipper)
     end
 
     test "returns `nil` if there is no node pointed by the zipper" do
       current =
         %BinaryTree{}
         |> BinaryTreeZipper.new()
-        |> BinaryTreeZipper.current()
+        |> BinaryTreeZipper.get()
 
       assert is_nil(current)
     end

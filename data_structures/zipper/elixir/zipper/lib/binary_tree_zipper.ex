@@ -6,8 +6,8 @@ defmodule Zipper.BinaryTreeZipper do
   def leaf?({_thread, %BinaryTree{left: nil, right: nil}}), do: true
   def leaf?({_thread, %BinaryTree{}}), do: false
 
-  def current({_thread, %BinaryTree{val: val}}), do: val
-  def current({_thread, nil}), do: nil
+  def get({_thread, %BinaryTree{val: val}}), do: val
+  def get({_thread, nil}), do: nil
 
   def put({thread, %BinaryTree{} = _replaced_binary_tree}, binary_tree) do
     {thread, binary_tree}

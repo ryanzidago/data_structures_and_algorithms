@@ -48,15 +48,15 @@ defmodule Zipper.ListZipperTest do
     end
   end
 
-  describe "current/1" do
+  describe "get/1" do
     test "points to the current element in the list zipper" do
       lzip = {[3, 2, 1], [4, 5, 6, 7, 8, 9, 10]}
-      assert 4 = ListZipper.current(lzip)
+      assert 4 = ListZipper.get(lzip)
     end
 
     test "returns `nil` if there is no current element" do
       lzip = {[3, 2, 1], []}
-      assert is_nil(ListZipper.current(lzip))
+      assert is_nil(ListZipper.get(lzip))
     end
   end
 
