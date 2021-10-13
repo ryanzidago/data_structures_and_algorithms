@@ -7,7 +7,7 @@ defmodule README.Config do
     """
     # Algorithms & Data Structures
 
-    As a shortcut, to avoid browsing all folders, you can simply view any of the table entries and click on the heavy green check mark so view the implementation in a specific language.
+    As a shortcut, to avoid browsing all folders, you can simply view any of the table entries and click on the heavy green check mark to view the implementation in a specific language.
 
 
     """

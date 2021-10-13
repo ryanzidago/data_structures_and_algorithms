@@ -1,2 +1,0 @@
-defmodule ZipperTest do
-end

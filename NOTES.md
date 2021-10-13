@@ -37,6 +37,7 @@ Boyer moore
 
 
 # TODO
++ https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
 + http://rosettacode.org/wiki/Levenshtein_distance
 + http://rosettacode.org/wiki/Dining_philosophers
 + http://rosettacode.org/wiki/100_prisoners
