@@ -3,6 +3,8 @@ defmodule Zipper.ListZipper do
 
   def from_list(list) when is_list(list), do: {[], list}
 
+  def from_range(%Range{} = range), do: from_list(Enum.to_list(range))
+
   def to_list({prev, next}), do: Enum.reverse(prev) ++ next
 
   def prev({[], next}), do: {[], next}

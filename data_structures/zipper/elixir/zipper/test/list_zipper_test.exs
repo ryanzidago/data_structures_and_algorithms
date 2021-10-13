@@ -17,6 +17,12 @@ defmodule Zipper.ListZipperTest do
     end
   end
 
+  describe "from_range/1" do
+    test "creates a ListZipper from a range" do
+      assert {[], [1, 2, 3]} == ListZipper.from_range(1..3)
+    end
+  end
+
   describe "to_list/1" do
     test "creates a list from a ListZipper" do
       assert [1, 2, 3] == ListZipper.to_list({[], [1, 2, 3]})
