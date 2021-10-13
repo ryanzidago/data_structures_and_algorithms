@@ -75,13 +75,79 @@ defmodule Zipper.BinaryTreeZipperTest do
     end
   end
 
-  describe "replace/2" do
-    test "replaces the value of the current node pointed by the zipper ", %{
-      binary_tree_zipper: binary_tree_zipper,
-      binary_tree: binary_tree
+  describe "put/2" do
+    test "replaces the current node by a new node or put the node into the zipper if no current node existed ",
+         %{
+           binary_tree_zipper: binary_tree_zipper
+         } do
+      assert {[], BinaryTree.new(1, nil, nil)} ==
+               BinaryTreeZipper.put(binary_tree_zipper, BinaryTree.new(1, nil, nil))
+    end
+  end
+
+  describe "right/1" do
+    test "appends a new node with the value and left child of the current node to the thread, returns the zipper with the updated thread and the left child",
+         %{
+           binary_tree_zipper: binary_tree_zipper,
+           binary_tree: binary_tree
+         } do
+      assert binary_tree_zipper = BinaryTreeZipper.right(binary_tree_zipper)
+      assert {thread, left} = binary_tree_zipper
+      assert thread[:right] == BinaryTree.new(binary_tree.val, binary_tree.left)
+      assert left == binary_tree.right
+    end
+
+    test "returns `nil` if the current node is `nil` within the zipper" do
+      assert is_nil(BinaryTreeZipper.right({[], nil}))
+    end
+  end
+
+  describe "left/1" do
+    test "appends a new node with the value and left child of the current node to the thread, returns the zipper with the updated thread and the left child",
+         %{
+           binary_tree_zipper: binary_tree_zipper,
+           binary_tree: binary_tree
+         } do
+      assert binary_tree_zipper = BinaryTreeZipper.left(binary_tree_zipper)
+      assert {thread, right} = binary_tree_zipper
+      assert thread[:left] == BinaryTree.new(binary_tree.val, nil, binary_tree.right)
+      assert right == binary_tree.left
+    end
+  end
+
+  describe "top/1" do
+    test "goes top from a current node to its parent", %{
+      binary_tree_zipper: binary_tree_zipper
     } do
-      assert {[], %BinaryTree{binary_tree | val: 100}} ==
-               BinaryTreeZipper.replace(binary_tree_zipper, 100)
+      assert binary_tree_zipper ==
+               binary_tree_zipper
+               |> BinaryTreeZipper.left()
+               |> BinaryTreeZipper.top()
+
+      assert binary_tree_zipper ==
+               binary_tree_zipper
+               |> BinaryTreeZipper.right()
+               |> BinaryTreeZipper.top()
+    end
+  end
+
+  describe "set_left_branch/2" do
+    test "sets the left branch of a binary tree within the zipper to a value", %{
+      binary_tree_zipper: binary_tree_zipper
+    } do
+      assert {_thread, binary_tree} =
+               BinaryTreeZipper.set_left_branch(binary_tree_zipper, BinaryTree.new(1_000_000))
+
+      assert BinaryTree.new(1_000_000) == binary_tree.left
+    end
+
+    test "sets the right branch of a binary tree within the zipper to a value", %{
+      binary_tree_zipper: binary_tree_zipper
+    } do
+      assert {_thread, binary_tree} =
+               BinaryTreeZipper.set_right_branch(binary_tree_zipper, BinaryTree.new(1_000_000))
+
+      assert BinaryTree.new(1_000_000) == binary_tree.right
     end
   end
 end
