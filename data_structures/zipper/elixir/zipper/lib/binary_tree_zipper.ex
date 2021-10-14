@@ -38,8 +38,6 @@ defmodule Zipper.BinaryTreeZipper do
     |> left()
     |> put(val)
     |> top()
-
-    # top(put(left(binary_tree_zipper), val))
   end
 
   def set_right_branch(binary_tree_zipper, val) do
@@ -47,7 +45,5 @@ defmodule Zipper.BinaryTreeZipper do
     |> right()
     |> put(val)
     |> top()
-
-    # top(put(right(binary_tree_zipper), val))
   end
 end
