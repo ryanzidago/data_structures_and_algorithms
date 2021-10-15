@@ -9,7 +9,7 @@ defmodule Zipper.BinaryTreeZipper do
   def get({_thread, %BinaryTree{val: val}}), do: val
   def get({_thread, nil}), do: nil
 
-  def put({thread, %BinaryTree{} = _replaced_binary_tree}, binary_tree) do
+  def put({thread, %BinaryTree{} = _replaced_binary_tree}, %BinaryTree{} = binary_tree) do
     {thread, binary_tree}
   end
 
@@ -24,6 +24,8 @@ defmodule Zipper.BinaryTreeZipper do
   def right({thread, %BinaryTree{val: val, left: left, right: right}}) do
     {[{:right, BinaryTree.new(val, left)} | thread], right}
   end
+
+  def top({[], %BinaryTree{} = _binary_tree}), do: nil
 
   def top({[{:left, %BinaryTree{val: val, left: nil, right: right}} | thread], left}) do
     {thread, BinaryTree.new(val, left, right)}

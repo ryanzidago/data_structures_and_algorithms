@@ -21,7 +21,8 @@ defmodule Zipper.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:binary_tree, path: "../../../binary_tree/elixir/binary_tree"}
+      {:binary_tree, path: "../../../binary_tree/elixir/binary_tree"},
+      {:ternary_tree, path: "../../../ternary_tree/elixir/ternary_tree"}
     ]
   end
 end
