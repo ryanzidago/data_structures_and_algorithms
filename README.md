@@ -29,6 +29,7 @@ Hashmap| | | | |[:heavy_check_mark:](data_structures/hashmap/rust/hashmap)
 Queue| |[:heavy_check_mark:](data_structures/queue/elixir/queue)|[:heavy_check_mark:](data_structures/queue/python/queue)|[:heavy_check_mark:](data_structures/queue/ruby/queue)|[:heavy_check_mark:](data_structures/queue/rust/queue)
 SinglyLinkedList| | | |[:heavy_check_mark:](data_structures/singly_linked_list/ruby/singly_linked_list)|[:heavy_check_mark:](data_structures/singly_linked_list/rust/singly_linked_list)
 Stack| |[:heavy_check_mark:](data_structures/stack/elixir/stack)|[:heavy_check_mark:](data_structures/stack/python/stack)|[:heavy_check_mark:](data_structures/stack/ruby/stack)|[:heavy_check_mark:](data_structures/stack/rust/stack)
+TernaryTree| |[:heavy_check_mark:](data_structures/ternary_tree/elixir/ternary_tree)| | | 
 Trie| |[:heavy_check_mark:](data_structures/trie/elixir/trie)|[:heavy_check_mark:](data_structures/trie/python/trie)| | 
 Zipper| |[:heavy_check_mark:](data_structures/zipper/elixir/zipper)| | | 
 
