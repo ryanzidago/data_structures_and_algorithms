@@ -13,17 +13,17 @@ defmodule Zipper.BinaryTreeZipper do
     {thread, binary_tree}
   end
 
+  def left({_thread, %BinaryTree{left: nil}}), do: nil
+
   def left({thread, %BinaryTree{val: val, left: left, right: right}}) do
     {[{:left, BinaryTree.new(val, nil, right)} | thread], left}
   end
 
-  def left({_thread, nil}), do: nil
+  def right({_thread, %BinaryTree{right: nil}}), do: nil
 
   def right({thread, %BinaryTree{val: val, left: left, right: right}}) do
     {[{:right, BinaryTree.new(val, left)} | thread], right}
   end
-
-  def right({_thread, nil}), do: nil
 
   def top({[{:left, %BinaryTree{val: val, left: nil, right: right}} | thread], left}) do
     {thread, BinaryTree.new(val, left, right)}

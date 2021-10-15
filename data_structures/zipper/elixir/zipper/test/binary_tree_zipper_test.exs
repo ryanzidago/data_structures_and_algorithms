@@ -85,6 +85,23 @@ defmodule Zipper.BinaryTreeZipperTest do
     end
   end
 
+  describe "left/1" do
+    test "appends a new node with the value and left child of the current node to the thread, returns the zipper with the updated thread and the left child",
+         %{
+           binary_tree_zipper: binary_tree_zipper,
+           binary_tree: binary_tree
+         } do
+      assert binary_tree_zipper = BinaryTreeZipper.left(binary_tree_zipper)
+      assert {thread, right} = binary_tree_zipper
+      assert thread[:left] == BinaryTree.new(binary_tree.val, nil, binary_tree.right)
+      assert right == binary_tree.left
+    end
+
+    test "returns `nil` if the current node has no left child" do
+      assert is_nil(BinaryTreeZipper.left({[], BinaryTree.new(1, nil, BinaryTree.new(0))}))
+    end
+  end
+
   describe "right/1" do
     test "appends a new node with the value and left child of the current node to the thread, returns the zipper with the updated thread and the left child",
          %{
@@ -97,21 +114,8 @@ defmodule Zipper.BinaryTreeZipperTest do
       assert left == binary_tree.right
     end
 
-    test "returns `nil` if the current node is `nil` within the zipper" do
-      assert is_nil(BinaryTreeZipper.right({[], nil}))
-    end
-  end
-
-  describe "left/1" do
-    test "appends a new node with the value and left child of the current node to the thread, returns the zipper with the updated thread and the left child",
-         %{
-           binary_tree_zipper: binary_tree_zipper,
-           binary_tree: binary_tree
-         } do
-      assert binary_tree_zipper = BinaryTreeZipper.left(binary_tree_zipper)
-      assert {thread, right} = binary_tree_zipper
-      assert thread[:left] == BinaryTree.new(binary_tree.val, nil, binary_tree.right)
-      assert right == binary_tree.left
+    test "returns `nil` if the current node has no right child" do
+      assert is_nil(BinaryTreeZipper.right({[], BinaryTree.new(1, BinaryTree.new(1), nil)}))
     end
   end
 
