@@ -26,6 +26,7 @@ BinaryTree| |[:heavy_check_mark:](data_structures/binary_tree/elixir/binary_tree
 DoublyLinkedList| | | | |[:heavy_check_mark:](data_structures/doubly_linked_list/rust/doubly_linked_list)
 Graph| | | |[:heavy_check_mark:](data_structures/graph/ruby/graph)|[:heavy_check_mark:](data_structures/graph/rust/graph)
 Hashmap| | | | |[:heavy_check_mark:](data_structures/hashmap/rust/hashmap)
+NAryTree| |[:heavy_check_mark:](data_structures/n_ary_tree/elixir/n_ary_tree)| | | 
 Queue| |[:heavy_check_mark:](data_structures/queue/elixir/queue)|[:heavy_check_mark:](data_structures/queue/python/queue)|[:heavy_check_mark:](data_structures/queue/ruby/queue)|[:heavy_check_mark:](data_structures/queue/rust/queue)
 SinglyLinkedList| | | |[:heavy_check_mark:](data_structures/singly_linked_list/ruby/singly_linked_list)|[:heavy_check_mark:](data_structures/singly_linked_list/rust/singly_linked_list)
 Stack| |[:heavy_check_mark:](data_structures/stack/elixir/stack)|[:heavy_check_mark:](data_structures/stack/python/stack)|[:heavy_check_mark:](data_structures/stack/ruby/stack)|[:heavy_check_mark:](data_structures/stack/rust/stack)
@@ -39,6 +40,7 @@ Zipper| |[:heavy_check_mark:](data_structures/zipper/elixir/zipper)| | |
 |-|-|-|-|-|-|
 Fibonacci| |[:heavy_check_mark:](problems/fibonacci/elixir/fibonacci)|[:heavy_check_mark:](problems/fibonacci/python/fibonacci)|[:heavy_check_mark:](problems/fibonacci/ruby/fibonacci)|[:heavy_check_mark:](problems/fibonacci/rust/fibonacci)
 Palindrome| |[:heavy_check_mark:](problems/palindrome/elixir/palindrome)|[:heavy_check_mark:](problems/palindrome/python/palindrome)| |[:heavy_check_mark:](problems/palindrome/rust/palindrome)
+Parallel-letter-frequency| |[:heavy_check_mark:](problems/parallel-letter-frequency/elixir/parallel-letter-frequency)| | | 
 StableMarriage| |[:heavy_check_mark:](problems/stable_marriage/elixir/stable_marriage)| |[:heavy_check_mark:](problems/stable_marriage/ruby/stable_marriage)|[:heavy_check_mark:](problems/stable_marriage/rust/stable_marriage)
 SupermarketQueue| | | | |[:heavy_check_mark:](problems/supermarket_queue/rust/supermarket_queue)
 WordCount| |[:heavy_check_mark:](problems/word_count/elixir/word_count)| | | 
