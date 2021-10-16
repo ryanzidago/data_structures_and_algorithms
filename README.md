@@ -40,7 +40,7 @@ Zipper| |[:heavy_check_mark:](data_structures/zipper/elixir/zipper)| | |
 |-|-|-|-|-|-|
 Fibonacci| |[:heavy_check_mark:](problems/fibonacci/elixir/fibonacci)|[:heavy_check_mark:](problems/fibonacci/python/fibonacci)|[:heavy_check_mark:](problems/fibonacci/ruby/fibonacci)|[:heavy_check_mark:](problems/fibonacci/rust/fibonacci)
 Palindrome| |[:heavy_check_mark:](problems/palindrome/elixir/palindrome)|[:heavy_check_mark:](problems/palindrome/python/palindrome)| |[:heavy_check_mark:](problems/palindrome/rust/palindrome)
-Parallel-letter-frequency| |[:heavy_check_mark:](problems/parallel-letter-frequency/elixir/parallel-letter-frequency)| | | 
+ParallelLetterFrequency| |[:heavy_check_mark:](problems/parallel_letter_frequency/elixir/parallel_letter_frequency)| | | 
 StableMarriage| |[:heavy_check_mark:](problems/stable_marriage/elixir/stable_marriage)| |[:heavy_check_mark:](problems/stable_marriage/ruby/stable_marriage)|[:heavy_check_mark:](problems/stable_marriage/rust/stable_marriage)
 SupermarketQueue| | | | |[:heavy_check_mark:](problems/supermarket_queue/rust/supermarket_queue)
 WordCount| |[:heavy_check_mark:](problems/word_count/elixir/word_count)| | | 
