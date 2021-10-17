@@ -1,0 +1,30 @@
+{
+  "blurb": "Make sure the brackets and braces all match.",
+  "authors": [
+    "jimmbraddock"
+  ],
+  "contributors": [
+    "angelikatyborska",
+    "Cohen-Carlisle",
+    "devonestes",
+    "lex57ukr",
+    "lpil",
+    "neenjaw",
+    "parkerl",
+    "sotojuan",
+    "waiting-for-dev",
+    "workingjubilee"
+  ],
+  "files": {
+    "solution": [
+      "lib/matching_brackets.ex"
+    ],
+    "test": [
+      "test/matching_brackets_test.exs"
+    ],
+    "example": [
+      ".meta/example.ex"
+    ]
+  },
+  "source": "Ginna Baker"
+}
