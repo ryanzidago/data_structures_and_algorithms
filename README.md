@@ -39,6 +39,7 @@ Zipper| |[:heavy_check_mark:](data_structures/zipper/elixir/zipper)| | |
 |Problems / Language|C|Elixir|Python|Ruby|Rust|
 |-|-|-|-|-|-|
 Fibonacci| |[:heavy_check_mark:](problems/fibonacci/elixir/fibonacci)|[:heavy_check_mark:](problems/fibonacci/python/fibonacci)|[:heavy_check_mark:](problems/fibonacci/ruby/fibonacci)|[:heavy_check_mark:](problems/fibonacci/rust/fibonacci)
+MatchingBrackets| |[:heavy_check_mark:](problems/matching_brackets/elixir/matching_brackets)| | | 
 Palindrome| |[:heavy_check_mark:](problems/palindrome/elixir/palindrome)|[:heavy_check_mark:](problems/palindrome/python/palindrome)| |[:heavy_check_mark:](problems/palindrome/rust/palindrome)
 ParallelLetterFrequency| |[:heavy_check_mark:](problems/parallel_letter_frequency/elixir/parallel_letter_frequency)| | | 
 StableMarriage| |[:heavy_check_mark:](problems/stable_marriage/elixir/stable_marriage)| |[:heavy_check_mark:](problems/stable_marriage/ruby/stable_marriage)|[:heavy_check_mark:](problems/stable_marriage/rust/stable_marriage)
