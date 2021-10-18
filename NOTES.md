@@ -43,3 +43,4 @@ Boyer moore
 + http://rosettacode.org/wiki/100_prisoners
 + http://rosettacode.org/wiki/Sleeping_Beauty_problem
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/fstrpos-example.html
++ http://rosettacode.org/wiki/Sorting_algorithms/Counting_sort
