@@ -6,7 +6,6 @@ defmodule Queue do
   def new(input) when is_list(input), do: %Queue{data: {input, []}}
   def new(input) when is_range(input), do: %Queue{data: {Enum.to_list(input), []}}
 
-  def push(%Queue{data: {[], output}}, val), do: %Queue{data: {[val], output}}
   def push(%Queue{data: {input, output}}, val), do: %Queue{data: {[val | input], output}}
 
   def pop(%Queue{data: {[], []}} = queue), do: {nil, queue}
