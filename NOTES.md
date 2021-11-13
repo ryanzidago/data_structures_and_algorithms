@@ -35,6 +35,9 @@ Boyer moore
 + https://web.stanford.edu/class/archive/cs/cs166/cs166.1146/lectures/10/Small10.pdf
 + https://web.stanford.edu/~mjkay/suffix_tree.pdf
 
+## Languages
++ https://eli.thegreenplace.net/2021/rust-data-structures-with-circular-references/
+
 
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
