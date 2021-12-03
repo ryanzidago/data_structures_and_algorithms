@@ -1,7 +1,5 @@
 # data-structures-and-algorithms
 
-# Algorithms
-
 ## Quicksort
 
 + https://stackoverflow.com/questions/70402/why-is-quicksort-better-than-mergesort
@@ -38,6 +36,10 @@ Boyer moore
 ## Languages
 + https://eli.thegreenplace.net/2021/rust-data-structures-with-circular-references/
 
+## CRDT
++ https://github.com/basho/riak_dt
++ https://github.com/aphyr/meangirls
++ https://github.com/rust-crdt/rust-crdt
 
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
