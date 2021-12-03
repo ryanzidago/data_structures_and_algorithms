@@ -41,6 +41,10 @@ Boyer moore
 + https://github.com/aphyr/meangirls
 + https://github.com/rust-crdt/rust-crdt
 + https://christophermeiklejohn.com/crdt/2014/07/22/readings-in-crdts.html
++ https://bartoszsypytkowski.com/the-state-of-a-state-based-crdts/
++ https://simongui.github.io/distributed-systems/crdt.html
++ https://www.infoworld.com/article/3305321/when-to-use-a-crdt-based-database.html
++ https://www.baeldung.com/java-conflict-free-replicated-data-types
 
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
