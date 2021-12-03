@@ -40,6 +40,7 @@ Boyer moore
 + https://github.com/basho/riak_dt
 + https://github.com/aphyr/meangirls
 + https://github.com/rust-crdt/rust-crdt
++ https://christophermeiklejohn.com/crdt/2014/07/22/readings-in-crdts.html
 
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
