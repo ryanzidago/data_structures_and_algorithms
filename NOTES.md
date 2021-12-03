@@ -45,6 +45,7 @@ Boyer moore
 + https://simongui.github.io/distributed-systems/crdt.html
 + https://www.infoworld.com/article/3305321/when-to-use-a-crdt-based-database.html
 + https://www.baeldung.com/java-conflict-free-replicated-data-types
++ https://run.unl.pt/bitstream/10362/7802/1/Sousa_2012.pdf
 
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
