@@ -47,6 +47,7 @@ Boyer moore
 + https://www.baeldung.com/java-conflict-free-replicated-data-types
 + https://run.unl.pt/bitstream/10362/7802/1/Sousa_2012.pdf
 + https://www.youtube.com/watch?v=9xFfOhasiOE
++ https://www.inkandswitch.com/peritext/
 
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
