@@ -48,6 +48,7 @@ Boyer moore
 + https://run.unl.pt/bitstream/10362/7802/1/Sousa_2012.pdf
 + https://www.youtube.com/watch?v=9xFfOhasiOE
 + https://www.inkandswitch.com/peritext/
++ https://www.youtube.com/watch?v=M8-WFTjZoA0
 
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
