@@ -50,6 +50,7 @@ Boyer moore
 + https://www.inkandswitch.com/peritext/
 + https://www.youtube.com/watch?v=M8-WFTjZoA0
 + https://github.com/coast-team/dotted-logootsplit
++ https://bartoszsypytkowski.com/tag/crdt/
 
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
