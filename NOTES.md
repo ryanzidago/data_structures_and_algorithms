@@ -52,6 +52,9 @@ Boyer moore
 + https://github.com/coast-team/dotted-logootsplit
 + https://bartoszsypytkowski.com/tag/crdt/
 
+## Rate Limiting Algorithms
++ https://dev.to/satrobit/rate-limiting-using-the-sliding-window-algorithm-5fjn
+
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
 + http://rosettacode.org/wiki/Levenshtein_distance
