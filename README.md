@@ -11,6 +11,7 @@ BoyerMooreMajorityVote| |[:heavy_check_mark:](algorithms/boyer_moore_majority_vo
 BubbleSort| | | | |[:heavy_check_mark:](algorithms/bubble_sort/rust/bubble_sort)
 InsertionSort| | |[:heavy_check_mark:](algorithms/insertion_sort/python/insertion_sort)|[:heavy_check_mark:](algorithms/insertion_sort/ruby/insertion_sort)|[:heavy_check_mark:](algorithms/insertion_sort/rust/insertion_sort)
 Kadane| |[:heavy_check_mark:](algorithms/kadane/elixir/kadane)|[:heavy_check_mark:](algorithms/kadane/python/kadane)|[:heavy_check_mark:](algorithms/kadane/ruby/kadane)|[:heavy_check_mark:](algorithms/kadane/rust/kadane)
+LeakingBucket| |[:heavy_check_mark:](algorithms/leaking_bucket/elixir/leaking_bucket)| | | 
 MergeSort| | |[:heavy_check_mark:](algorithms/merge_sort/python/merge_sort)|[:heavy_check_mark:](algorithms/merge_sort/ruby/merge_sort)| 
 New| | | | | 
 Quicksort|[:heavy_check_mark:](algorithms/quicksort/c/quicksort)| |[:heavy_check_mark:](algorithms/quicksort/python/quicksort)| |[:heavy_check_mark:](algorithms/quicksort/rust/quicksort)
