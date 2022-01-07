@@ -9,6 +9,7 @@ As a shortcut, to avoid browsing all folders, you can simply view any of the tab
 BinarySearch| | |[:heavy_check_mark:](algorithms/binary_search/python/binary_search)| |[:heavy_check_mark:](algorithms/binary_search/rust/binary_search)
 BoyerMooreMajorityVote| |[:heavy_check_mark:](algorithms/boyer_moore_majority_vote/elixir/boyer_moore_majority_vote)|[:heavy_check_mark:](algorithms/boyer_moore_majority_vote/python/boyer_moore_majority_vote)|[:heavy_check_mark:](algorithms/boyer_moore_majority_vote/ruby/boyer_moore_majority_vote)|[:heavy_check_mark:](algorithms/boyer_moore_majority_vote/rust/boyer_moore_majority_vote)
 BubbleSort| | | | |[:heavy_check_mark:](algorithms/bubble_sort/rust/bubble_sort)
+FixedWindowCounter| |[:heavy_check_mark:](algorithms/fixed_window_counter/elixir/fixed_window_counter)| | | 
 InsertionSort| | |[:heavy_check_mark:](algorithms/insertion_sort/python/insertion_sort)|[:heavy_check_mark:](algorithms/insertion_sort/ruby/insertion_sort)|[:heavy_check_mark:](algorithms/insertion_sort/rust/insertion_sort)
 Kadane| |[:heavy_check_mark:](algorithms/kadane/elixir/kadane)|[:heavy_check_mark:](algorithms/kadane/python/kadane)|[:heavy_check_mark:](algorithms/kadane/ruby/kadane)|[:heavy_check_mark:](algorithms/kadane/rust/kadane)
 LeakingBucket| |[:heavy_check_mark:](algorithms/leaking_bucket/elixir/leaking_bucket)| | | 
