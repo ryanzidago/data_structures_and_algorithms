@@ -13,7 +13,6 @@ InsertionSort| | |[:heavy_check_mark:](algorithms/insertion_sort/python/insertio
 Kadane| |[:heavy_check_mark:](algorithms/kadane/elixir/kadane)|[:heavy_check_mark:](algorithms/kadane/python/kadane)|[:heavy_check_mark:](algorithms/kadane/ruby/kadane)|[:heavy_check_mark:](algorithms/kadane/rust/kadane)
 LeakingBucket| |[:heavy_check_mark:](algorithms/leaking_bucket/elixir/leaking_bucket)| | | 
 MergeSort| | |[:heavy_check_mark:](algorithms/merge_sort/python/merge_sort)|[:heavy_check_mark:](algorithms/merge_sort/ruby/merge_sort)| 
-New| | | | | 
 Quicksort|[:heavy_check_mark:](algorithms/quicksort/c/quicksort)| |[:heavy_check_mark:](algorithms/quicksort/python/quicksort)| |[:heavy_check_mark:](algorithms/quicksort/rust/quicksort)
 SelectionSort| | |[:heavy_check_mark:](algorithms/selection_sort/python/selection_sort)| |[:heavy_check_mark:](algorithms/selection_sort/rust/selection_sort)
 TokenBucket| |[:heavy_check_mark:](algorithms/token_bucket/elixir/token_bucket)| | | 
