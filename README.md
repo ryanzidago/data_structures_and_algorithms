@@ -12,8 +12,10 @@ BubbleSort| | | | |[:heavy_check_mark:](algorithms/bubble_sort/rust/bubble_sort)
 InsertionSort| | |[:heavy_check_mark:](algorithms/insertion_sort/python/insertion_sort)|[:heavy_check_mark:](algorithms/insertion_sort/ruby/insertion_sort)|[:heavy_check_mark:](algorithms/insertion_sort/rust/insertion_sort)
 Kadane| |[:heavy_check_mark:](algorithms/kadane/elixir/kadane)|[:heavy_check_mark:](algorithms/kadane/python/kadane)|[:heavy_check_mark:](algorithms/kadane/ruby/kadane)|[:heavy_check_mark:](algorithms/kadane/rust/kadane)
 MergeSort| | |[:heavy_check_mark:](algorithms/merge_sort/python/merge_sort)|[:heavy_check_mark:](algorithms/merge_sort/ruby/merge_sort)| 
+New| | | | | 
 Quicksort|[:heavy_check_mark:](algorithms/quicksort/c/quicksort)| |[:heavy_check_mark:](algorithms/quicksort/python/quicksort)| |[:heavy_check_mark:](algorithms/quicksort/rust/quicksort)
 SelectionSort| | |[:heavy_check_mark:](algorithms/selection_sort/python/selection_sort)| |[:heavy_check_mark:](algorithms/selection_sort/rust/selection_sort)
+TokenBucket| |[:heavy_check_mark:](algorithms/token_bucket/elixir/token_bucket)| | | 
 
 
 # Data_structures
@@ -27,6 +29,7 @@ DoublyLinkedList| | | | |[:heavy_check_mark:](data_structures/doubly_linked_list
 Graph| | | |[:heavy_check_mark:](data_structures/graph/ruby/graph)|[:heavy_check_mark:](data_structures/graph/rust/graph)
 Hashmap| | | | |[:heavy_check_mark:](data_structures/hashmap/rust/hashmap)
 NAryTree| |[:heavy_check_mark:](data_structures/n_ary_tree/elixir/n_ary_tree)| | | 
+QuadTree| |[:heavy_check_mark:](data_structures/quad_tree/elixir/quad_tree)| | | 
 Queue| |[:heavy_check_mark:](data_structures/queue/elixir/queue)|[:heavy_check_mark:](data_structures/queue/python/queue)|[:heavy_check_mark:](data_structures/queue/ruby/queue)|[:heavy_check_mark:](data_structures/queue/rust/queue)
 SinglyLinkedList| | | |[:heavy_check_mark:](data_structures/singly_linked_list/ruby/singly_linked_list)|[:heavy_check_mark:](data_structures/singly_linked_list/rust/singly_linked_list)
 Stack| |[:heavy_check_mark:](data_structures/stack/elixir/stack)|[:heavy_check_mark:](data_structures/stack/python/stack)|[:heavy_check_mark:](data_structures/stack/ruby/stack)|[:heavy_check_mark:](data_structures/stack/rust/stack)
