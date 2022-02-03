@@ -55,6 +55,9 @@ Boyer moore
 ## Rate Limiting Algorithms
 + https://dev.to/satrobit/rate-limiting-using-the-sliding-window-algorithm-5fjn
 
+## Others
++ https://michiel.buddingh.eu/unique-visits-bloom-filter
+
 # TODO
 + https://www.cs.utexas.edu/users/moore/best-ideas/string-searching/index.html
 + http://rosettacode.org/wiki/Levenshtein_distance
